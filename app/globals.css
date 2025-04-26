@@ -2,18 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* /* :root {
   --foreground: #171717;
-}
+} */
 
-body {
+/* body {
   color: var(--foreground);
   background:radial-gradient(circle at 90% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.0%, rgb(19, 30, 37) 66%);
   background-repeat:no-repeat;
-}
+} */
 
-@layer utilities {
+/* @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
+}  */
