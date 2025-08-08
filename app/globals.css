@@ -9,3 +9,8 @@ html {
 body {
     overflow-x: hidden;
 }
+
+.film-roll-container {
+    position: sticky;
+    top: 20vh;
+}

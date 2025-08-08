@@ -5,7 +5,7 @@ import Computer from "./Computer"
 import dynamic from 'next/dynamic';
 import FilmRoll from "./FilmRoll";
 import Footer from "../Footer";
-import SketchImage from '../SketchImage';
+import Image from 'next/image';
 
 const Sunrise = dynamic(() => import('./Sunrise'), {
     ssr: false,
@@ -48,7 +48,7 @@ function Entry() {
                 >
                     <div className="relative z-10 w-full h-full flex items-center justify-center">
                         <Computer />
-                        <div className="absolute w-[700px] h-[310px] bottom-[130px] left-[600px] overflow-hidden">
+                        <div className="absolute w-[790px] h-[318px] bottom-[130px] left-[565px] overflow-hidden">
                             <Code />
                         </div>
                     </div>
@@ -66,7 +66,7 @@ function Entry() {
                         </h1>
                 <section className = "mb-16">
                     <h2 className = "text-3xl font-bold mb-6"> Overview</h2>
-                    <SketchImage />
+                    <Image src = "/Surya.png" alt = "image" width = "420" height = "420"/>
                     <div className = "prose prose-lg max-w-none">
                         I am Surya! a developer, student, and lifelong learner. I am passionate about technology and 
                         its potential to change the world. I enjoy coding, problem-solving, and exploring new ideas.
@@ -150,7 +150,7 @@ function Entry() {
                         <div className="relative group">
                             <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors">
                                     <div className="text-center">
-                                        <h4 className="font-medium">Sleeping</h4>
+                                        <h4 className="font-medium">Eating</h4>
                                         <p className="text-sm text-gray-600">Eating</p>
                                     </div>
                                 </div>
@@ -162,6 +162,8 @@ function Entry() {
                                         <p className="text-sm text-gray-600">&nbsp;</p>
                                     </div>
                                 </div>
+                                {/* <Image src="https://tenor.com/view/tom-and-jerry-tom-cat-sleeping-tired-tired-cat-gif-10832784407320118473" alt="Description of GIF" width={500} height={300} /> */}
+                                    
                             </div>
                         </div>
                     </div>

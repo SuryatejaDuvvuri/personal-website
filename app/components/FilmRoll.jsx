@@ -18,7 +18,7 @@ function FilmRoll() {
             antialias: true,
             alpha: true 
         });
-        renderer.setSize(500, 500);
+        renderer.setSize(700, 700);
         
         if (containerRef.current) {
             containerRef.current.appendChild(renderer.domElement);
@@ -34,7 +34,6 @@ function FilmRoll() {
         const reelGroup = new THREE.Group();
         const stripGroup = new THREE.Group();
 
-        // Create reel
         const reelGeometry = new THREE.CylinderGeometry(2, 2, 0.3, 32);
         const reelMaterial = new THREE.MeshStandardMaterial({
             color: 0xffffff,
@@ -78,7 +77,7 @@ function FilmRoll() {
         const createFilmTexture = () => {
     const canvas = document.createElement('canvas');
     canvas.width = 512; 
-    canvas.height = 2048;
+    canvas.height = 4096;
     const ctx = canvas.getContext('2d');
     
     ctx.fillStyle = '#000000';
@@ -106,7 +105,7 @@ function FilmRoll() {
         const holeHeight = 30;
         
 
-        ctx.fillRect(5, i * frameHeight + 30, holeWidth, holeHeight);
+        ctx.fillRect(5, i * frameHeight + 60, holeWidth, holeHeight);
         ctx.fillRect(5, i * frameHeight + frameHeight - 60, holeWidth, holeHeight);
         
         ctx.fillRect(
@@ -148,7 +147,7 @@ function FilmRoll() {
             return hole;
         };
 
-       for (let i = 0; i < Math.floor(stripLength / 0.4) - 2; i++) {
+       for (let i = 0; i < Math.floor(stripLength / 0.4); i++) {
             strip.add(createPerforation(stripHeight/2 - 0.1, -i * 0.4));  
             strip.add(createPerforation(-stripHeight/2 + 0.1, -i * 0.4));
         }
@@ -183,8 +182,8 @@ function FilmRoll() {
                     const wave3 = Math.sin(y * 0.1 + time * 0.5) * 0.1;
                     const falloff = Math.pow(Math.abs(y) / stripLength, 0.8);
                     
-                    // positions.setX(i, initialPositions[i * 3] + (wave1 + wave3) * falloff);
-                    positions.setZ(i, initialPositions[i * 3 + 2] + wave2 * falloff);
+                    positions.setX(i, initialPositions[i * 3] + (wave1 + wave3) * falloff);
+                    // positions.setZ(i, initialPositions[i * 3 + 2] + wave2 * falloff);
                 }
                 stripRef.current.material.map.offset.y = offset;
                 positions.needsUpdate = true;

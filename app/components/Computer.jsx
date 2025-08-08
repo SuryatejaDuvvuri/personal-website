@@ -78,14 +78,14 @@ function Computer()
         // base.position.set(6.5, -5.32, 0);
         monitor.add(base);
 
-        screen.position.set(0, 0, 0.02);
-        screen.scale.set(1.3, 1.1, 1);
+        screen.position.set(.25, 0, 0.02);
+        screen.scale.set(1.495, 1.1, 1);
         // screen.scale.set(2,2,2);
-        bezel.position.set(0, 0, -0.06);
-        // bezel.scale.set(2.2, 2.2,2.2);
-        stand.position.set(0, -2.8, 0);
+        bezel.position.set(0.25, -0.05, -0.06);
+        bezel.scale.set(1.5, 1.14,1.1);
+        stand.position.set(0, -3.2, 0);
         stand.scale.set(1, 0.8, 1);
-        base.position.set(0, -3.35, 0);
+        base.position.set(0, -3.75, 0);
         base.rotation.x = 0;
         base.rotation.y = 0;
         monitor.rotation.y = 0;

@@ -12,6 +12,9 @@ module.exports = {
         foreground: "var(--foreground)",
         primary: "#4A8BDF"
       },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
       animation: {
         typewriter: "typewriter 2s steps(11) forwards"
       },

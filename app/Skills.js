@@ -44,7 +44,7 @@ export default function Skills()
                     Collaborated with 3 Fellows to build and deploy a SaaS product that generates flashcards based on any topic using the Llama 3.1 LLM. 
                     </li>
                     <li>
-                        Implemented an embedded AI version of Rate my Professor through HuggingFace's Sentence Transformers to extract data and upsert to a Pinecone index to improve feedback by 15%.
+                        Implemented an embedded AI version of Rate my Professor through HuggingFace Sentence Transformers to extract data and upsert to a Pinecone index to improve feedback by 15%.
                     </li>
                 </ul>
            
@@ -64,7 +64,7 @@ export default function Skills()
                     </li>
                     <li>
                     Submitted detailed project updates weekly, showcasing continuous    
-                    improvement and iteration, contributing to the overall project's success.
+                    improvement and iteration, contributing to the overall project success.
                     </li>
                 </ul>
            
