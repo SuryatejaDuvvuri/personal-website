@@ -51,7 +51,7 @@ function Code() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.font = `${letterSize}px monospace`;
+            ctx.font = `${letterSize}px font-matrix`;
 
             for (let i = 0; i < drops.length; i++) {
                 const text = letters[Math.floor(Math.random() * letters.length)];
@@ -77,7 +77,7 @@ function Code() {
             const currentText = phrases[currentPhrase];
             const typed = currentText.substring(0, currentChar);
 
-            ctx.font = `900 28px ${inter.style.fontFamily}`;
+            ctx.font = `900 40px Sekaiwo, monospace`;
             ctx.fillStyle = '#ffffff';
             ctx.textBaseline = 'middle';
             ctx.textAlign = 'center';

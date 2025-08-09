@@ -14,6 +14,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
+        matrix: ['Sekaiwo', 'sans-serif']
       },
       animation: {
         typewriter: "typewriter 2s steps(11) forwards"

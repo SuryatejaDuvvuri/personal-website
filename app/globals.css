@@ -14,3 +14,9 @@ body {
     position: sticky;
     top: 20vh;
 }
+@font-face {
+  font-family: 'Sekaiwo';
+  src: url('/fonts/SekaiwoRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

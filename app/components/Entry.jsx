@@ -14,6 +14,92 @@ const Sunrise = dynamic(() => import('./Sunrise'), {
     </div>
 });
 
+function Timeline()
+{
+    const [selectYear, setSelectedYear] = useState(experiences[0].year);
+    const selected = experiences.find((exp) => exp.year === selectYear);
+
+    return (
+        <section className = "mb-16">
+           <div className = "flex gap-4 mb-8">
+                {experiences.map((exp) => (
+                <button key={exp.year} onClick = {() => setSelectedYear(exp.year)} className = {`px-4 py-2 rounded-full font-semibold transition-colors
+                    ${selectYear === exp.year ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 font-matrix hover:bg-blue-100"}`}>
+                        {exp.year}
+                    </button>
+            ))}
+           </div>
+           <div className = "space-y-8 border-l-4 border-blue-600 pl-6">
+            {selected.items.map((item,index) => (
+                <div key = {index} className = "relative">
+                    <div className = "absolute -left-7 top-2 w-4 h-4 bg-blue-600 rounded-full border-2 border-white"></div>
+                    <h3 className="text-xl mb-1 font-matrix">{item.title}</h3>
+                    <span className="text-sm text-gray-500 font-matrix">{item.date}</span>
+                    <p className="text-gray-300 mt-2 font-matrix">{item.description}</p>
+                </div>
+            ))}
+           </div>
+           
+        </section>
+    )
+}
+
+const experiences = [
+    {
+        year:2022,
+        items: [
+            {
+                title: "Member of ACM@UCR",
+                date: "September 2022 - December 2022",
+                description: "Attended general meetings and career development workshops. Participated in Cutie Hack to make a terminal-based game on history trivia."
+            },
+            {
+                title: "Member of RoseHack Committee",
+                date: "September 2022 - December 2022",
+                description: "Worked on the outreach team to email companies for sponsorship."
+            }
+        ],
+    },
+    {
+        year:2023,
+        items: [
+            {
+                title: "Member of IEEE Robosub @UCR",
+                date: "April 2023 - February 2024",
+                description: "I was focused on enhancing robotic navigation using OpenCV for edge detection. I had to learn morphological operations and Canny edge detection to identify corners around gates, improving obstacle navigation through various environments. "
+            }
+        ]
+    }
+]
+
+const projects = [
+    {
+        year:2021,
+        items: [
+            {
+                title: "Personal Website",
+                date: "September 2022 - December 2022",
+                description: "Attended general meetings and career development workshops. Participated in Cutie Hack to make a terminal-based game on history trivia."
+            },
+            {
+                title: "Member of RoseHack Committee",
+                date: "September 2022 - December 2022",
+                description: "Worked on the outreach team to email companies for sponsorship."
+            }
+        ],
+    },
+    {
+        year:2022,
+        items: [
+            {
+                title: "Blog Project",
+                date: "April 2023 - February 2024",
+                description: "I was focused on enhancing robotic navigation using OpenCV for edge detection. I had to learn morphological operations and Canny edge detection to identify corners around gates, improving obstacle navigation through various environments. "
+            }
+        ]
+    }
+]
+
 function Entry() {
     const [scrolled, setScrolled] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -38,7 +124,7 @@ function Entry() {
 
             <section className="relative min-h-[200vh]">
                 <div 
-                    className="sticky top-0 h-screen w-full overflow-hidden"
+                    className="sticky top-0 min-h-[400px] w-full"
                     style={{
                         transform: scrolled ? `translate3d(0, ${scrollProgress * 10}vh, ${scrollProgress * 300}px) scale(${1 - scrollProgress * 0.4})` : 'none',
                         opacity: 1 - scrollProgress,
@@ -61,23 +147,55 @@ function Entry() {
                         transform: `scale(${0.9 + scrollProgress * 0.1})`,
                         transition: 'opacity 0.3s ease-in-out, transform 1s cubic-bezier(0.23, 1, 0.32, 1)',
                     }}>
-                        <h1 className="text-6xl font-black tracking-tighter pb-4 mb-12">
+                        <h1 className="font-matrix text-7xl text-white font-black tracking-tighter pb-4 mb-12">
                             About me & Interests
                         </h1>
                 <section className = "mb-16">
-                    <h2 className = "text-3xl font-bold mb-6"> Overview</h2>
-                    <Image src = "/Surya.png" alt = "image" width = "420" height = "420"/>
-                    <div className = "prose prose-lg max-w-none">
-                        I am Surya! a developer, student, and lifelong learner. I am passionate about technology and 
-                        its potential to change the world. I enjoy coding, problem-solving, and exploring new ideas.
-                        I am studying at University of California, Riverside and pursuing a degree in Computer Science
-                        but my passion for building stuff started from Legos to my high school programming classes.
-                        I am always looking for opportunities to learn and grow, both personally and professionally.
+                    <h2 className = "font-matrix text-4xl font-bold mb-6 text-white"> Overview</h2>
+                    <div className = "flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
+                        <div className = "flex-shrink-0">
+                            <Image src = "/Surya.png" alt = "image" width = {340} height = {340} className = "rounded-xl shadow-lg object-cover w-[340px] h-[340px] border-4 border-white"/>
+                        </div>
+                        <div className = "font-matrix text-2xl space-y-6 dark: text-gray-300 p-4 leading-relaxed">
+                            <p>
+                            I am Suryateja! a developer, student, and lifelong learner. I am studying at <span className="text-green-400">University of California, Riverside </span> and pursuing a bachelors degree in Computer Science.
+                            </p>
+                            <p>
+                                 My passion for building stuff started when I was building Legos as a child and I also saw this interest 
+                                 through my high school programming classes in assignments and projects. 
+                            </p> 
+                            <p> When I started doing personal projects, I always focused on either showing things differently, or tweaking tools that others could not think of or just trying to solve a problem whether that is a small or big scale. </p>
+                           
+                           <p>
+                             Since the start of my undergraduate career, I have been exploring areas 
+                             like full stack development, mobile development and integrating tools like AI to enhance my applications. 
+                             I am always looking for opportunities to learn and grow, both personally and professionally.
+                           </p>
+                        </div>
                     </div>
                 </section>
 
                 <section className = "mb-16">
-                    <h2 className = "text-3xl font-bold mb-6"> Skills & Interests</h2>
+                    <h2 className = "text-3xl font-bold mb-6">Experience</h2>
+                    <Timeline/>
+                    {/* <div className = "space-y-8">
+                        <div className = "rounded-lg border border-gray-200 pb-6">
+                            <h3 className = "text-xl font-semibold mb-4">Internship at XYZ Company</h3>
+                            <span className = "text-sm text-gray-500">June  2022 - August 2022</span>
+                        </div>
+                        <p className = "text-gray-700">
+                            Worked on various projects involving web development and software engineering.
+                        </p>
+                    </div>
+
+                    <div className = "pt-4">
+                        <h3 className = "text-xl font-semibold mb-4">Certificates and Awards</h3>
+                        <ul className = "list-disc list-inside">
+                            <li>Certificate in Web Development from ABC Institute</li>
+                            <li>Award for Best Project at XYZ Hackathon</li>
+                        </ul>
+                    </div> */}
+                    {/* <h2 className = "text-3xl font-bold mb-6"> Skills & Interests</h2>
                     <div className = "grid grid-cols-3 gap-8">
                         <div className = "rounded-lg border border-gray-200 p-6">
                             <h3 className = "text-xl font-semibold mb-4">Programming Languages</h3>
@@ -95,10 +213,10 @@ function Entry() {
                                     <li>Next.js</li>
                                 </ul>
                         </div>
-                    </div>
+                    </div> */}
                 </section>
 
-                <section>
+                {/* <section>
                     <h2 className = "text-3xl font-bold mb-6">Projects</h2> 
                     <div className = "grid grid-cols-3 gap-8">
                         {[1,2,3,4].map((project) => (
@@ -114,56 +232,27 @@ function Entry() {
                             </div>
                         ))}
                     </div>
-                </section>
+                </section> */}
 
                 <section className = "mb-16">
-                    <h2 className = "text-3xl font-bold mb-6">Experience</h2>
-                    <div className = "space-y-8">
-                        <div className = "rounded-lg border border-gray-200 pb-6">
-                            <h3 className = "text-xl font-semibold mb-4">Internship at XYZ Company</h3>
-                            <span className = "text-sm text-gray-500">June  2022 - August 2022</span>
-                        </div>
-                        <p className = "text-gray-700">
-                            Worked on various projects involving web development and software engineering.
-                        </p>
-                    </div>
-
-                    <div className = "pt-4">
-                        <h3 className = "text-xl font-semibold mb-4">Certificates and Awards</h3>
-                        <ul className = "list-disc list-inside">
-                            <li>Certificate in Web Development from ABC Institute</li>
-                            <li>Award for Best Project at XYZ Hackathon</li>
-                        </ul>
-                    </div>
-
                     <div className = "pt-8">
-                        <h3 className = "text-xl font-semibold mb-4">What am I doing now?</h3>
+                        <h3 className = "font-matrix text-2xl font-semibold mb-4 dark:text-white">What am I doing now?</h3>
                         <div className="grid grid-cols-3 gap-6">
                         <div className = "relative-group">
-                            <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors">
-                                <div className="text-center">
-                                    <h4 className="font-medium">Coding</h4>
-                                    <p className="text-sm text-gray-600">Homework</p>
-                                </div>
+                            <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
+                                <Image src="/coding.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />  
+                                
                             </div>
                         </div>
                         <div className="relative group">
-                            <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors">
-                                    <div className="text-center">
-                                        <h4 className="font-medium">Eating</h4>
-                                        <p className="text-sm text-gray-600">Eating</p>
-                                    </div>
-                                </div>
+                            <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
+                                <Image src="/eating.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />  
                             </div>
+                        </div>
                             <div className="relative group">
-                                <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors">
-                                    <div className="text-center">
-                                        <h4 className="font-medium">Sleeping</h4>
-                                        <p className="text-sm text-gray-600">&nbsp;</p>
-                                    </div>
+                                <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
+                                    <Image src="/shannonandrew.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />
                                 </div>
-                                {/* <Image src="https://tenor.com/view/tom-and-jerry-tom-cat-sleeping-tired-tired-cat-gif-10832784407320118473" alt="Description of GIF" width={500} height={300} /> */}
-                                    
                             </div>
                         </div>
                     </div>
@@ -204,11 +293,11 @@ function Entry() {
 
                 <div className="min-h-screen flex items-center justify-center p-8">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-8xl font-black tracking-tighter mb-12">
+                        <h2 className="font-matrix text-8xl font-black tracking-tighter mb-12 dark:text-white">
                             Contact
                         </h2>
 
-                        <form className="space-y-6 max-w-2xl">
+                        <form className="font-matrix space-y-6 max-w-2xl">
                             <div>
                                 <label htmlFor="name" className="block text-lg font-medium text-gray-700">Name</label>
                                 <input
