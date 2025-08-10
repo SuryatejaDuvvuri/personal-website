@@ -13,7 +13,7 @@ import { FaGithub, FaAward } from 'react-icons/fa';
 const Sunrise = dynamic(() => import('./Sunrise'), {
     ssr: false,
     loading: () => <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-xl font-medium text-gray-600">Loading...</p>
+        <p className="text-xl font-matrix text-gray-600">Loading...</p>
     </div>
 });
 
@@ -472,9 +472,12 @@ function Entry() {
 
     useEffect(() => {
         const handleScroll = () => {
-            const progress = window.scrollY / (window.innerHeight * 0.5);
-            setScrollProgress(Math.min(1, progress));
-            setScrolled(progress > 0.1);
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPosition = window.scrollY;
+            const maxScroll = window.innerHeight * 0.5;
+            const initialProgress = Math.min(1, Math.max(0, scrollPosition / maxScroll));
+            setScrollProgress(initialProgress);
+            setScrolled(initialProgress > 0.1);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -483,14 +486,15 @@ function Entry() {
 
     return (
         <main className="relative w-full">
+            <div className  = "bg-gradient-to-b from-transparent to-[#1a2540]/90 pointer-events-none">
             <div className="fixed inset-0 z-0 pointer-events-none select-none">
                 <Sunrise />
                 <FilmRoll />
             </div>
 
-            <section className="relative min-h-[200vh]">
+            <section className="relative min-h-[100vh]">
                 <div 
-                    className="sticky top-0 min-h-[400px] w-full"
+                    className="sticky min-h-[400px] w-full"
                     style={{
                         transform: scrolled ? `translate3d(0, ${scrollProgress * 10}vh, ${scrollProgress * 300}px) scale(${1 - scrollProgress * 0.4})` : 'none',
                         opacity: 1 - scrollProgress,
@@ -508,11 +512,7 @@ function Entry() {
                     
                 <div 
                     className="relative z-20 max-w-6xl mx-auto px-4 py-16"
-                    style={{
-                        opacity: scrollProgress,
-                        transform: `scale(${0.9 + scrollProgress * 0.1})`,
-                        transition: 'opacity 0.3s ease-in-out, transform 1s cubic-bezier(0.23, 1, 0.32, 1)',
-                    }}>
+                    >
                         <h1 className="font-matrix text-7xl text-white font-black tracking-tighter pb-4 mb-12">
                             About me & Interests
                         </h1>
@@ -522,7 +522,7 @@ function Entry() {
                         <div className = "flex-shrink-0">
                             <Image src = "/Surya.png" alt = "image" width = {340} height = {340} className = "rounded-xl shadow-lg object-cover w-[340px] h-[340px] border-4 border-white"/>
                         </div>
-                        <div className = "font-matrix text-2xl space-y-6 dark: text-gray-300 p-4 leading-relaxed">
+                        <div className = "font-matrix text-2xl space-y-6 dark:text-gray-300 p-4 leading-relaxed">
                             <p>
                             I am Suryateja! a developer, student, and lifelong learner. I am studying at <span className="text-green-400">University of California, Riverside </span> and pursuing a bachelors degree in Computer Science.
                             </p>
@@ -541,9 +541,9 @@ function Entry() {
                     </div>
                 </section>
 
-                <section className = "mb-16">
-                    <h2 className = "text-3xl font-bold mb-6 font-matrix text-white">Experience</h2>
-                    <Timeline/>
+                {/* <section className = "mb-16"> */}
+                    {/* <h2 className = "text-3xl font-bold mb-6 font-matrix text-white">Experience</h2>
+                    <Timeline/> */}
                     {/* <div className = "pt-4">
                         <h3 className = "text-xl font-semibold mb-4">Certificates and Awards</h3>
                         <ul className = "list-disc list-inside">
@@ -551,8 +551,8 @@ function Entry() {
                             <li>Award for Best Project at XYZ Hackathon</li>
                         </ul>
                     </div>  */}
-                    <ProjectsSection />
-                    <Awards/>
+                    {/* <ProjectsSection />
+                    <Awards/> */}
                     {/* <h2 className = "text-3xl font-bold mb-6"> Skills & Interests</h2>
                     <div className = "grid grid-cols-3 gap-8">
                         <div className = "rounded-lg border border-gray-200 p-6">
@@ -572,9 +572,9 @@ function Entry() {
                                 </ul>
                         </div>
                     </div> */}
-                </section>
+                {/* </section> */}
 
-                <section className = "mb-16">
+                {/* <section className = "mb-16">
                     <div className = "pt-8">
                         <h3 className = "font-matrix text-2xl font-semibold mb-4 dark:text-white">What am I doing now?</h3>
                         <div className="grid grid-cols-3 gap-6">
@@ -596,7 +596,7 @@ function Entry() {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
                 {/* <div className="min-h-screen flex items-center bg-gray-100">
                     <div className="max-w-7xl mx-auto px-8 py-24 w-full">
                         <h2 className="text-8xl font-black tracking-tighter mb-12">
@@ -631,7 +631,7 @@ function Entry() {
                     </div>
                 </div> */}
 
-                <div className="min-h-screen flex items-center justify-center p-8">
+                {/* <div className="min-h-screen flex items-center justify-center p-8">
                     <div className="w-full mx-auto rounded-2xl shadow-2xl p-10">
                         <h2 className="font-matrix text-8xl font-black tracking-tighter mb-12 dark:text-white">
                             Contact
@@ -674,12 +674,13 @@ function Entry() {
                         </form>
                
                     </div>
-                </div>
+                </div> */}
 
                     
                 </div>
             </section>
             <Footer />
+            </div>
         </main>
     );
 }
