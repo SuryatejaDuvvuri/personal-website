@@ -78,7 +78,7 @@ function Sunrise()
             return roomGroup;
         }
 
-        const skyGeo = new THREE.PlaneGeometry(34,24);
+        const skyGeo = new THREE.PlaneGeometry(44,50);
         const skyMat = new THREE.ShaderMaterial({
             uniforms: {
                 topColor: {value: new THREE.Color(0x0A1530)},
@@ -130,7 +130,7 @@ function Sunrise()
             side: THREE.DoubleSide,
             });
         const sky = new THREE.Mesh(skyGeo, skyMat);
-        sky.position.set(0, 0, -11);
+        sky.position.set(0, -5, -11);
         scene.add(sky);
 
         const sunGlowGeo = new THREE.CircleGeometry(3.5, 64);
@@ -218,7 +218,7 @@ function Sunrise()
         });
 
         const sun = new THREE.Mesh(sunGeo, sunMat);
-        sun.position.set(0, -11, -11);
+        sun.position.set(0, -51, -11);
         scene.add(sun);
       
 
@@ -257,7 +257,7 @@ function Sunrise()
             });
 
             const mountain = new THREE.Mesh(mountainGeo, mountainMat);
-            mountain.position.set(0,-4,z);
+            mountain.position.set(0,-3,z);
             mountains.add(mountain);
         }
         addMountain([
@@ -377,7 +377,7 @@ function Sunrise()
         const ANIMATION_STOP_THRESHOLD = 0.5;
 
         const handleScroll = () => {
-            scrollProgress = window.scrollY / window.innerHeight;
+            scrollProgress = window.scrollY / document.documentElement.scrollHeight;
             targetZ = Math.max(5 - (scrollProgress * 15), MAX_ZOOM);
 
             const fadeOutProgress = Math.min(scrollProgress * 1.5, 1);
@@ -389,6 +389,9 @@ function Sunrise()
             child.material.opacity = 1 - fadeOutProgress;
             child.material.transparent = true;
             });
+            
+            // const maxY = -5
+            // camera.position.y = Math.min(scrollProgress*maxY,maxY)
 
             const maxZ = 4; 
             windowGroup.position.z = Math.min(scrollProgress * 8, maxZ);
@@ -426,13 +429,27 @@ function Sunrise()
 
             if(!complete && scrollProgress < ANIMATION_STOP_THRESHOLD)
             {
+                let lastProgress;
+                if (!window.lastAnimationTime) 
+                {
+                    window.lastAnimationTime = time * speed;
+                }
+                if (scrollProgress < 0.1 && window.wasAboveThreshold) 
+                {
+                    complete = false;
+                    window.wasAboveThreshold = false;
+                }
                 const progress = Math.min(time*speed,duration);
-                const sunY = -11+11*Math.sin(progress);
+                const sunY = -25+25*Math.sin(progress);
                 sun.position.y = sunY; 
                 sunGlow.position.y = sunY;
                 if(progress >= duration)
                 {
                     complete = true;
+                }
+                else
+                {
+                    window.lastAnimationTime = time * speed;
                 }
                 const normalizedProgress = progress/duration;
                 const easedProgress = Math.sin(normalizedProgress * Math.PI / 2);
@@ -447,6 +464,10 @@ function Sunrise()
                 );
                 sunLight.color.set(color);
                 roomLight.intensity = 1 - easedProgress * 0.5;
+            }
+            else if(scrollProgress >= ANIMATION_STOP_THRESHOLD)
+            {
+                window.wasAboveThreshold = true;
             }
            
             clouds.children.forEach((cloud) => {
@@ -475,7 +496,7 @@ function Sunrise()
     }, []);
 
     return (
-       <canvas ref = {ref} className = "fixed inset-0 -z-10" />
+       <canvas ref = {ref} className = "fixed inset-0 w-full h-full -z-10" />
     )
 }
 

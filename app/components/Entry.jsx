@@ -485,7 +485,7 @@ function Entry() {
         <main className="relative w-full">
             <div className="fixed inset-0 z-0 pointer-events-none select-none">
                 <Sunrise />
-                {/* <FilmRoll /> */}
+                <FilmRoll />
             </div>
 
             <section className="relative min-h-[200vh]">
