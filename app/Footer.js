@@ -5,12 +5,12 @@ export default function Navbar() {
     const dark = false;
   
     return (
-    <div className = "flex flex-col items-stretch">
+    <div className = "flex flex-col items-stretch justify-center">
      <hr className="mt-4 border-gray-700 m-auto w-3/4 text-center" />
-      <div class = "flex flex-row mt-4 lg:mt-0 mr-0">
+      <div className = "flex flex-row mt-4 lg:mt-0 mr-0">
         <footer className = "m-6 border-gray-200 flex flex-row justify-between items-center text-gray-300">
 
-        <span className="text-lg m-auto flex flex-col justify-center items-center text-center">
+        <span className="text-lg font-matrix m-auto flex flex-col justify-center items-center text-center">
             
             {new Date().getFullYear()} © Suryateja Duvvuri
             <span className="m-auto flex flex-wrap text-center">

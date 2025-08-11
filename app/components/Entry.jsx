@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import {useRouter} from 'next/navigation';
 import Code from "./Code"
 import Computer from "./Computer"
 import dynamic from 'next/dynamic';
@@ -469,217 +470,193 @@ function Awards()
 function Entry() {
     const [scrolled, setScrolled] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const router = useRouter();
+    const zoomProgress = Math.max(0, Math.min(1, (scrollProgress - 0.6) / 0.4))
 
     useEffect(() => {
-        const handleScroll = () => {
-            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPosition = window.scrollY;
-            const maxScroll = window.innerHeight * 0.5;
-            const initialProgress = Math.min(1, Math.max(0, scrollPosition / maxScroll));
-            setScrollProgress(initialProgress);
-            setScrolled(initialProgress > 0.1);
-        };
+        window.scrollTo(0, 0);
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        const handleRouteChange = () => {
+            window.scrollTo(0, 0);
+        };
+        router.events?.on('routeChangeComplete', handleRouteChange);
+
+        return () => {
+            router.events?.off('routeChangeComplete', handleRouteChange);
+        };
+    }, [router]);
 
     return (
-        <main className="relative w-full">
-            <div className  = "bg-gradient-to-b from-transparent to-[#1a2540]/90 pointer-events-none">
-            <div className="fixed inset-0 z-0 pointer-events-none select-none">
-                <Sunrise />
-                <FilmRoll />
-            </div>
+        <main className="relative w-full" scroll={false}>
+            <div className="bg-gradient-to-b from-transparent to-[#1a2540]/90">
+                <div className="fixed inset-0 z-0 select-none">
+                    <Sunrise />
+                    <FilmRoll />
+                </div>
 
-            <section className="relative min-h-[100vh]">
-                <div 
-                    className="sticky min-h-[400px] w-full"
-                    style={{
-                        transform: scrolled ? `translate3d(0, ${scrollProgress * 10}vh, ${scrollProgress * 300}px) scale(${1 - scrollProgress * 0.4})` : 'none',
-                        opacity: 1 - scrollProgress,
-                        transition: 'transform 1s cubic-bezier(0.23, 1, 0.32, 1), opacity 1s ease-in-out',
-                        transformOrigin: 'center center',
-                    }}
-                >
-                    <div className="relative z-10 w-full h-full flex items-center justify-center">
-                        <Computer />
-                        <div className="absolute w-[790px] h-[318px] bottom-[130px] left-[565px] overflow-hidden">
-                            <Code />
+                <section className="relative min-h-[100vh]">
+                    <div
+                        className="sticky min-h-[400px] w-full"
+                        style={{
+                            transform: scrolled ? `translate3d(0, ${scrollProgress * 10}vh, ${scrollProgress * 300}px) scale(${1 - scrollProgress * 0.4})` : 'none',
+                            opacity: 1 - scrollProgress,
+                            transition: 'transform 1s cubic-bezier(0.23, 1, 0.32, 1), opacity 1s ease-in-out',
+                            transformOrigin: 'center center',
+                        }}
+                    >
+                        <div className="relative z-10 w-full h-full flex items-center justify-center">
+                            <Computer zoomProgress={zoomProgress} />
+                            <div className="absolute w-[790px] h-[318px] bottom-[130px] left-[565px] overflow-hidden">
+                                <Code />
+                            </div>
                         </div>
                     </div>
-                </div>
-                    
-                <div 
-                    className="relative z-20 max-w-6xl mx-auto px-4 py-16"
-                    >
+
+                    <div className="relative z-20 max-w-6xl mx-auto px-4 py-16">
                         <h1 className="font-matrix text-7xl text-white font-black tracking-tighter pb-4 mb-12">
                             About me & Interests
                         </h1>
-                <section className = "mb-16">
-                    <h2 className = "font-matrix text-4xl font-bold mb-6 text-white"> Overview</h2>
-                    <div className = "flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
-                        <div className = "flex-shrink-0">
-                            <Image src = "/Surya.png" alt = "image" width = {340} height = {340} className = "rounded-xl shadow-lg object-cover w-[340px] h-[340px] border-4 border-white"/>
-                        </div>
-                        <div className = "font-matrix text-2xl space-y-6 dark:text-gray-300 p-4 leading-relaxed">
-                            <p>
-                            I am Suryateja! a developer, student, and lifelong learner. I am studying at <span className="text-green-400">University of California, Riverside </span> and pursuing a bachelors degree in Computer Science.
-                            </p>
-                            <p>
-                                 My passion for building stuff started when I was building Legos as a child and I also saw this interest 
-                                 through my high school programming classes in assignments and projects. 
-                            </p> 
-                            <p> When I started doing personal projects, I always focused on either showing things differently, or tweaking tools that others could not think of or just trying to solve a problem whether that is a small or big scale. </p>
-                           
-                           <p>
-                             Since the start of my undergraduate career, I have been exploring areas 
-                             like full stack development, mobile development and integrating tools like AI to enhance my applications. 
-                             I am always looking for opportunities to learn and grow, both personally and professionally.
-                           </p>
-                        </div>
-                    </div>
-                </section>
-
-                {/* <section className = "mb-16"> */}
-                    {/* <h2 className = "text-3xl font-bold mb-6 font-matrix text-white">Experience</h2>
-                    <Timeline/> */}
-                    {/* <div className = "pt-4">
-                        <h3 className = "text-xl font-semibold mb-4">Certificates and Awards</h3>
-                        <ul className = "list-disc list-inside">
-                            <li>Certificate in Web Development from ABC Institute</li>
-                            <li>Award for Best Project at XYZ Hackathon</li>
-                        </ul>
-                    </div>  */}
-                    {/* <ProjectsSection />
-                    <Awards/> */}
-                    {/* <h2 className = "text-3xl font-bold mb-6"> Skills & Interests</h2>
-                    <div className = "grid grid-cols-3 gap-8">
-                        <div className = "rounded-lg border border-gray-200 p-6">
-                            <h3 className = "text-xl font-semibold mb-4">Programming Languages</h3>
-                            <ul className = "list-disc list-inside">
-                                <li>Python</li>
-                                <li>JavaScript</li>
-                                <li>C++</li>
-                            </ul>
-                        </div>
-                        <div className="rounded-lg border border-gray-200 p-6">
-                                <h3 className="text-xl font-semibold mb-4">Technologies and Frameworks</h3>
-                                <ul className="list-disc list-inside">
-                                    <li>React</li>
-                                    <li>Node.js</li>
-                                    <li>Next.js</li>
-                                </ul>
-                        </div>
-                    </div> */}
-                {/* </section> */}
-
-                {/* <section className = "mb-16">
-                    <div className = "pt-8">
-                        <h3 className = "font-matrix text-2xl font-semibold mb-4 dark:text-white">What am I doing now?</h3>
-                        <div className="grid grid-cols-3 gap-6">
-                        <div className = "relative-group">
-                            <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
-                                <Image src="/coding.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />  
-                                
-                            </div>
-                        </div>
-                        <div className="relative group">
-                            <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
-                                <Image src="/eating.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />  
-                            </div>
-                        </div>
-                            <div className="relative group">
-                                <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
-                                    <Image src="/shannonandrew.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />
+                        <section className="mb-16">
+                            <h2 className="font-matrix text-4xl font-bold mb-6 text-white"> Overview</h2>
+                            <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
+                                <div className="flex-shrink-0">
+                                    <Image src="/Surya.png" alt="image" width={340} height={340} className="rounded-xl shadow-lg object-cover w-[340px] h-[340px] border-4 border-white" />
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </section> */}
-                {/* <div className="min-h-screen flex items-center bg-gray-100">
-                    <div className="max-w-7xl mx-auto px-8 py-24 w-full">
-                        <h2 className="text-8xl font-black tracking-tighter mb-12">
-                            Experience
-                        </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                                <div className="space-y-6">
-                                    <h3 className="text-4xl font-bold">Internship at XYZ Company</h3>
-                                    <p className="text-lg text-gray-700">
-                                        Worked on various projects involving web development and software engineering.
+                                <div className="font-matrix text-2xl space-y-6 dark:text-gray-300 p-4 leading-relaxed">
+                                    <p>
+                                        I am Suryateja! a developer, student, and lifelong learner. I am studying at <span className="text-green-400">University of California, Riverside </span> and pursuing a bachelors degree in Computer Science.
+                                    </p>
+                                    <p>
+                                        My passion for building stuff started when I was building Legos as a child and I also saw this interest
+                                        through my high school programming classes in assignments and projects.
+                                    </p>
+                                    <p> When I started doing personal projects, I always focused on either showing things differently, or tweaking tools that others could not think of or just trying to solve a problem whether that is a small or big scale. </p>
+
+                                    <p>
+                                        Since the start of my undergraduate career, I have been exploring areas
+                                        like full stack development, mobile development and integrating tools like AI to enhance my applications.
+                                        I am always looking for opportunities to learn and grow, both personally and professionally.
                                     </p>
                                 </div>
                             </div>
-                    </div>
-                </div>
+                        </section>
 
-                 <section className="min-h-screen flex items-center bg-gray-100">
-                    <div className="max-w-7xl mx-auto px-8 py-24 w-full">
-                        <h2 className="text-8xl font-black tracking-tighter mb-12">
-                            Projects
-                        </h2>
+                        <section className="mb-16">
+                            <h2 className="text-3xl font-bold mb-6 font-matrix text-white">Experience</h2>
+                            <Timeline />
+                            <ProjectsSection />
+                            <Awards />
+                            <h2 className="text-3xl font-bold mb-6"> Skills & Interests</h2>
+                            <div className="grid grid-cols-3 gap-8">
+                                <div className="rounded-lg border border-gray-200 p-6">
+                                    <h3 className="text-xl font-semibold mb-4">Programming Languages</h3>
+                                    <ul className="list-disc list-inside flex flex-col gap-2">
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-yellow-400 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2.5l13.5 7.8v11.4L16 29.5 2.5 21.7V10.3z" fill="#3776AB"/><path d="M16 4.2l11.5 6.6v10.4L16 27.8 4.5 21.2V10.8z" fill="#fff"/><path d="M16 6.1l9.5 5.5v8.8L16 25.9l-9.5-5.5v-8.8z" fill="#3776AB"/></svg></span>
+                                            Python
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-yellow-500 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><path d="M2 2h28v28H2z" fill="#f7df1e"/><path d="M19.7 23.6c.5.8 1.1 1.4 2.2 1.4 1 0 1.6-.5 1.6-1.2 0-.8-.6-1.1-1.8-1.6l-.6-.3c-1.7-.7-2.8-1.6-2.8-3.6 0-1.8 1.4-3.2 3.6-3.2 1.6 0 2.7.6 3.5 2l-1.9 1.2c-.4-.8-.8-1.1-1.6-1.1-.7 0-1.1.4-1.1 1 0 .7.4 1 1.4 1.4l.6.3c2 .9 3.1 1.7 3.1 3.7 0 2.1-1.7 3.3-4 3.3-2.2 0-3.6-1.1-4.3-2.5zm-8.2.2c.3.6.6 1.1 1.3 1.1.7 0 1.1-.3 1.1-1.4v-7.7h2.2v7.8c0 2.3-1.3 3.3-3.2 3.3-1.7 0-2.7-.9-3.2-2z" fill="#000"/></svg></span>
+                                            JavaScript
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-blue-500 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2.3l13.7 7.9v11.6L16 29.7 2.3 21.8V10.2z" fill="#00599C"/><path d="M16 4.1l11.5 6.6v10.6L16 27.9 4.5 21.3V10.7z" fill="#fff"/><path d="M16 6.2l9.5 5.5v8.8L16 25.8l-9.5-5.5v-8.8z" fill="#00599C"/><path d="M16 8.1l7.5 4.3v7.2L16 23.9l-7.5-4.3v-7.2z" fill="#fff"/><path d="M16 10.1l5.5 3.2v5.2L16 21.9l-5.5-3.2v-5.2z" fill="#00599C"/></svg></span>
+                                            C++
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="rounded-lg border border-gray-200 p-6">
+                                    <h3 className="text-xl font-semibold mb-4">Technologies and Frameworks</h3>
+                                    <ul className="list-disc list-inside flex flex-col gap-2">
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-cyan-400 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><circle cx="16" cy="16" r="16" fill="#61dafb"/><path d="M16 6.5c-5.2 0-9.5 2.1-9.5 4.7s4.3 4.7 9.5 4.7 9.5-2.1 9.5-4.7-4.3-4.7-9.5-4.7zm0 8.2c-4.1 0-7.5-1.5-7.5-3.5s3.4-3.5 7.5-3.5 7.5 1.5 7.5 3.5-3.4 3.5-7.5 3.5z" fill="#fff"/><circle cx="16" cy="16" r="2.5" fill="#fff"/></svg></span>
+                                            React
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-green-700 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><circle cx="16" cy="16" r="16" fill="#3c873a"/><path d="M23.6 17.7c-.2-.4-.5-.7-.9-.9-.4-.2-.9-.3-1.4-.3-.5 0-1 .1-1.4.3-.4.2-.7.5-.9.9-.2.4-.3.9-.3 1.4 0 .5.1 1 .3 1.4.2.4.5.7.9.9.4.2.9.3 1.4.3.5 0 1-.1 1.4-.3.4-.2.7-.5.9-.9.2-.4.3-.9.3-1.4 0-.5-.1-1-.3-1.4zm-7.2-2.5c-.2-.4-.5-.7-.9-.9-.4-.2-.9-.3-1.4-.3-.5 0-1 .1-1.4.3-.4.2-.7.5-.9.9-.2.4-.3.9-.3 1.4 0 .5.1 1 .3 1.4.2.4.5.7.9.9.4.2.9.3 1.4.3.5 0 1-.1 1.4-.3.4-.2.7-.5.9-.9.2-.4.3-.9.3-1.4 0-.5-.1-1-.3-1.4zm7.2-2.5c-.2-.4-.5-.7-.9-.9-.4-.2-.9-.3-1.4-.3-.5 0-1 .1-1.4.3-.4.2-.7.5-.9.9-.2.4-.3.9-.3 1.4 0 .5.1 1 .3 1.4.2.4.5.7.9.9.4.2.9.3 1.4.3.5 0 1-.1 1.4-.3.4-.2.7-.5.9-.9.2-.4.3-.9.3-1.4 0-.5-.1-1-.3-1.4z" fill="#fff"/></svg></span>
+                                            Node.js
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <span className="text-gray-900 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><rect width="32" height="32" rx="16" fill="#000"/><path d="M16 7.5l8.5 4.9v7.2L16 24.5l-8.5-4.9v-7.2z" fill="#fff"/><path d="M16 9.2l7 4v5.6l-7 4-7-4v-5.6z" fill="#fff"/><path d="M16 10.9l5.5 3.1v4.4l-5.5 3.1-5.5-3.1v-4.4z" fill="#fff"/></svg></span>
+                                            Next.js
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="mb-16">
+                            <div className="pt-8">
+                                <h3 className="font-matrix text-2xl font-semibold mb-4 dark:text-white">What am I doing now?</h3>
+                                <div className="grid grid-cols-3 gap-6">
+                                    <div className="relative-group">
+                                        <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
+                                            <Image src="/coding.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />
+                                        </div>
+                                    </div>
+                                    <div className="relative group">
+                                        <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
+                                            <Image src="/eating.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />
+                                        </div>
+                                    </div>
+                                    <div className="relative group">
+                                        <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
+                                            <Image src="/shannonandrew.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="min-h-screen flex items-center justify-center p-8">
+                            <div className="w-full mx-auto rounded-2xl shadow-2xl p-10">
+                                <h2 className="font-matrix text-8xl font-black tracking-tighter mb-12 dark:text-white">
+                                    Contact
+                                </h2>
+
+                                <form className="font-matrix space-y-6">
+                                    <div>
+                                        <label htmlFor="name" className="block text-xl font-matrix text-gray-700">Name</label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            className="mt-1 block w-full rounded-md border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="email" className="block text-lg font-matrix text-gray-700">Email</label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="message" className="block text-lg font-matrix text-gray-700">Message</label>
+                                        <textarea
+                                            id="message"
+                                            name="message"
+                                            rows={4}
+                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                        />
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-black py-2 px-4 text-lg font-matrix text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                    >
+                                        Send Message
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+
 
                     </div>
                 </section>
-
-                 <div className="min-h-screen flex items-center justify-center p-8">
-                    <div className="max-w-4xl mx-auto">
-                        <h2 className="text-8xl font-black tracking-tighter mb-12">
-                            Skills
-                        </h2>
-
-                    </div>
-                </div> */}
-
-                {/* <div className="min-h-screen flex items-center justify-center p-8">
-                    <div className="w-full mx-auto rounded-2xl shadow-2xl p-10">
-                        <h2 className="font-matrix text-8xl font-black tracking-tighter mb-12 dark:text-white">
-                            Contact
-                        </h2>
-
-                        <form className="font-matrix space-y-6">
-                            <div>
-                                <label htmlFor="name" className="block text-xl font-matrix text-gray-700">Name</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    className="mt-1 block w-full rounded-md border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="email" className="block text-lg font-matrix text-gray-700">Email</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="message" className="block text-lg font-matrix text-gray-700">Message</label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    rows={4}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="inline-flex justify-center rounded-md border border-transparent bg-black py-2 px-4 text-lg font-matrix text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                            >
-                                Send Message
-                            </button>
-                        </form>
-               
-                    </div>
-                </div> */}
-
-                    
-                </div>
-            </section>
-            <Footer />
+                <Footer />
             </div>
         </main>
     );

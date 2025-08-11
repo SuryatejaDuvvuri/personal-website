@@ -47,34 +47,6 @@ function Sunrise()
             rightWall.rotation.y = -Math.PI / 2;
             roomGroup.add(rightWall);
 
-            // const ceilingGeo = new THREE.PlaneGeometry(18, 2);
-            // const ceiling = new THREE.Mesh(ceilingGeo, wallMat);
-            // ceiling.position.set(0, 7, -2);
-            // ceiling.rotation.x = Math.PI / 2;
-            // roomGroup.add(ceiling);     
-
-            // const floorGeo = new THREE.PlaneGeometry(28, 20);
-            // const floorMat = new THREE.MeshStandardMaterial({
-            //     color: 0xD9C7B3, 
-            //     roughness: 0.8,
-            //     metalness: 0.2
-            // });
-            // const floor = new THREE.Mesh(floorGeo, floorMat);
-            // floor.position.set(0, -7, -2);
-            // floor.rotation.x = -Math.PI / 2;
-            // roomGroup.add(floor);
-
-            // const tableMat = new THREE.MeshStandardMaterial({
-            //     color: 0x5c3f2a, 
-            //     roughness: 0.7,
-            //     metalness: 0.2
-            // });
-            
-            // const tableTopGeo = new THREE.BoxGeometry(10, 0.5, 3);
-            // const tableTop = new THREE.Mesh(tableTopGeo, tableMat);
-            // tableTop.position.set(0, -5.5, -2.5);
-            // roomGroup.add(tableTop);
-
             return roomGroup;
         }
 

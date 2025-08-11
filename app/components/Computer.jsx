@@ -24,6 +24,9 @@ function Computer()
         render.setPixelRatio(window.devicePixelRatio);
         render.setClearAlpha(0);
 
+        const computerGroup = new THREE.Group();
+        scene.add(computerGroup);
+
         const screenShape = new THREE.Shape();
         const width = 8;
         const height = 4.5;
@@ -85,7 +88,7 @@ function Computer()
         bezel.scale.set(1.5, 1.14,1.1);
         stand.position.set(0, -3.2, 0);
         stand.scale.set(1, 0.8, 1);
-        base.position.set(0, -3.75, 0);
+        base.position.set(0, -3.85, 0);
         base.rotation.x = 0;
         base.rotation.y = 0;
         monitor.rotation.y = 0;
@@ -96,6 +99,19 @@ function Computer()
         const directional = new THREE.DirectionalLight(0xffffff,1);
         directional.position.set(5,5,5);
         scene.add(ambient,directional);
+        computerGroup.add(screen);
+        computerGroup.add(bezel);
+        computerGroup.add(stand);
+        computerGroup.add(base);
+    
+        // const handleScroll = () => 
+        // {
+        //     const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        //     camera.position.z = 8 - 6 * scrollProgress;
+        //     const scale = 1 + scrollProgress * 2;
+        //     computerGroup.scale.set(scale, scale, scale);
+        // };
+        // window.addEventListener('scroll', handleScroll);
 
         const animate = () => {
             requestAnimationFrame(animate);
@@ -112,6 +128,7 @@ function Computer()
         window.addEventListener('resize', resizeHandle);
 
         return () => {
+            // window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize',resizeHandle);
             render.dispose();
         }
