@@ -2,7 +2,7 @@
 import { time } from 'framer-motion';
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
-function Computer() 
+function Computer({zoomProgress = 0}) 
 {
     const ref = useRef(null);
 
@@ -16,8 +16,8 @@ function Computer()
         const camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
         camera.position.set(0, 0.8, 8);
 
-        const monitor = new THREE.Group();
-        scene.add(monitor);
+        // const computerGroup = new THREE.Group();
+        // scene.add(computerGroup);
 
         const render = new THREE.WebGLRenderer({canvas:ref.current,antialias:true,alpha:true});
         render.setSize(window.innerWidth,window.innerHeight);
@@ -45,7 +45,7 @@ function Computer()
         const screenGeo = new THREE.ShapeGeometry(screenShape);
         const screenMat = new THREE.MeshStandardMaterial({color: 0x2e2e2e, metalness: 0.25, roughness: 0.45, clearcoat:0.1, emissive: 0x0a0a0a, emissiveIntensity: 0.1});
         const screen = new THREE.Mesh(screenGeo,screenMat);
-        monitor.add(screen);
+        computerGroup.add(screen);
     
         const bezelShape = new THREE.Shape();
         const bezelWidth = 8.2;
@@ -66,20 +66,20 @@ function Computer()
         const bezelMat = new THREE.MeshStandardMaterial({ color: 0x151515, roughness: 0.6 });
         const bezel = new THREE.Mesh(bezelGeo, bezelMat);
         // bezel.position.set(6.5, -1.92, -0.04);
-        monitor.add(bezel);
+        computerGroup.add(bezel);
 
 
         const standGeo = new THREE.CylinderGeometry(0.12, 0.12, 1.2, 32);
         const standMat = new THREE.MeshStandardMaterial({ color: 0x202020, roughness: 0.7 });
         const stand = new THREE.Mesh(standGeo, standMat);
         // stand.position.set(6.5, -4.85, 0);
-        monitor.add(stand);
+        computerGroup.add(stand);
         
         const baseGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.08, 32);
         const baseMat = new THREE.MeshStandardMaterial({ color: 0x202020, roughness: 0.7 });
         const base = new THREE.Mesh(baseGeo, baseMat);
         // base.position.set(6.5, -5.32, 0);
-        monitor.add(base);
+        computerGroup.add(base);
 
         screen.position.set(.25, 0, 0.02);
         screen.scale.set(1.495, 1.1, 1);
@@ -91,9 +91,9 @@ function Computer()
         base.position.set(0, -3.85, 0);
         base.rotation.x = 0;
         base.rotation.y = 0;
-        monitor.rotation.y = 0;
-        monitor.rotation.x = 0;
-        monitor.position.set(0, -2.6, -2);
+        computerGroup.rotation.y = 0;
+        computerGroup.rotation.x = 0;
+        computerGroup.position.set(0, -2.6, -2);
 
         const ambient = new THREE.AmbientLight(0xffffff,0.5);
         const directional = new THREE.DirectionalLight(0xffffff,1);
@@ -103,18 +103,20 @@ function Computer()
         computerGroup.add(bezel);
         computerGroup.add(stand);
         computerGroup.add(base);
-    
-        // const handleScroll = () => 
-        // {
-        //     const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-        //     camera.position.z = 8 - 6 * scrollProgress;
-        //     const scale = 1 + scrollProgress * 2;
-        //     computerGroup.scale.set(scale, scale, scale);
-        // };
-        // window.addEventListener('scroll', handleScroll);
 
-        const animate = () => {
+        const handleScroll = () => {
+            const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            camera.position.z = 8 - 6 * scrollProgress;
+        };
+        window.addEventListener('scroll', handleScroll);
+
+        const animate = () => 
+        {
             requestAnimationFrame(animate);
+            camera.position.z = 8 - (6 * Math.pow(zoomProgress, 1.5));
+            camera.position.y = 0.8 + (0.7 * zoomProgress);
+            camera.fov = 75 - (25 * zoomProgress);
+            camera.updateProjectionMatrix();
             render.render(scene,camera);
         };
         animate();
@@ -128,11 +130,11 @@ function Computer()
         window.addEventListener('resize', resizeHandle);
 
         return () => {
-            // window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize',resizeHandle);
             render.dispose();
         }
-    }, []);
+    }, [zoomProgress]);
 
     return <canvas ref = {ref} className = "w-full h-full" />;
 }

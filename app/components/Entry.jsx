@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import FilmRoll from "./FilmRoll";
 import Footer from "../Footer";
 import Image from 'next/image';
+
 import { IconName } from "react-icons/fa6";
 import { FaAngleRight } from "react-icons/fa6";
 import { FaGithub, FaAward } from 'react-icons/fa';
@@ -471,24 +472,38 @@ function Entry() {
     const [scrolled, setScrolled] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
     const router = useRouter();
-    const zoomProgress = Math.max(0, Math.min(1, (scrollProgress - 0.6) / 0.4))
+    const zoomProgress = Math.max(0, Math.min(1, (scrollProgress - 0.1) / 0.1));
+    const isMonitorFullscreen = zoomProgress >= 0.00001;
 
     useEffect(() => {
         window.scrollTo(0, 0);
 
-        const handleRouteChange = () => {
-            window.scrollTo(0, 0);
+        const handleScroll = () => 
+        {
+            const scrollPos = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = scrollPos / maxScroll;
+            
+            setScrolled(scrollPos > 2);
+            setScrollProgress(progress);
         };
-        router.events?.on('routeChangeComplete', handleRouteChange);
+
+        window.addEventListener('scroll', handleScroll);
 
         return () => {
-            router.events?.off('routeChangeComplete', handleRouteChange);
+            window.removeEventListener('scroll', handleScroll);
         };
-    }, [router]);
+    }, []);
 
     return (
-        <main className="relative w-full" scroll={false}>
-            <div className="bg-gradient-to-b from-transparent to-[#1a2540]/90">
+        <main className="relative w-full" style={{
+                background: isMonitorFullscreen ? "#000" : "",
+                transition: "background 0.5s"
+            }}>
+            <div className="bg-gradient-to-b from-transparent to-[#1a2540]/90" style={{
+                    transition: 'opacity 0.5s ease-out',
+                    pointerEvents: isMonitorFullscreen ? 'none' : 'auto'
+                }}>
                 <div className="fixed inset-0 z-0 select-none">
                     <Sunrise />
                     <FilmRoll />
@@ -496,23 +511,42 @@ function Entry() {
 
                 <section className="relative min-h-[100vh]">
                     <div
-                        className="sticky min-h-[400px] w-full"
+                        className={`fixed inset-0 z-10 flex items-center justify-center${isMonitorFullscreen ? ' pointer-events-none' : ''}`}
                         style={{
-                            transform: scrolled ? `translate3d(0, ${scrollProgress * 10}vh, ${scrollProgress * 300}px) scale(${1 - scrollProgress * 0.4})` : 'none',
-                            opacity: 1 - scrollProgress,
-                            transition: 'transform 1s cubic-bezier(0.23, 1, 0.32, 1), opacity 1s ease-in-out',
-                            transformOrigin: 'center center',
+                            transform: `scale(${1 + zoomProgress * 0.5})`,
+                            opacity: isMonitorFullscreen ? 0 : 1,
+                            pointerEvents: isMonitorFullscreen ? 'none' : 'auto',
+                            transition: 'transform 0.5s ease-out, opacity 0.3s ease-out',
                         }}
                     >
-                        <div className="relative z-10 w-full h-full flex items-center justify-center">
-                            <Computer zoomProgress={zoomProgress} />
-                            <div className="absolute w-[790px] h-[318px] bottom-[130px] left-[565px] overflow-hidden">
-                                <Code />
-                            </div>
-                        </div>
+                        {!isMonitorFullscreen && (
+                            <>
+                                <Computer zoomProgress={zoomProgress} />
+                                <div className="absolute w-[790px] h-[318px] bottom-[130px] left-[565px] overflow-hidden"
+                                    style={{ opacity: 1 - zoomProgress * 2 }}>
+                                    <Code />
+                                </div>
+                            </>
+                        )}
                     </div>
 
-                    <div className="relative z-20 max-w-6xl mx-auto px-4 py-16">
+                    <div className="absolute inset-0 z-10" style={{
+                        opacity: isMonitorFullscreen ? 1 : 0,
+                        visibility: isMonitorFullscreen ? 'visible' : 'hidden',
+                        transition: 'opacity 0.5s ease-in-out',
+                        background: 'rgba(0, 10, 0, 0.9)', 
+                        color: '#0f0',
+                        overflow: 'auto'
+                    }}>
+                         <div 
+                            className="absolute inset-0 pointer-events-none" 
+                            style={{
+                                background: 'linear-gradient(rgba(0, 255, 0, 0.03) 50%, rgba(0, 0, 0, 0) 50%)',
+                                backgroundSize: '100% 4px',
+                                mixBlendMode: 'overlay',
+                                opacity: 0.2,
+                            }}
+                        />
                         <h1 className="font-matrix text-7xl text-white font-black tracking-tighter pb-4 mb-12">
                             About me & Interests
                         </h1>
@@ -655,6 +689,7 @@ function Entry() {
 
 
                     </div>
+                <div className="h-[300vh]"></div>
                 </section>
                 <Footer />
             </div>
