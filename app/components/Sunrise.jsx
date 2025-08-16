@@ -379,7 +379,7 @@ function Sunrise()
         window.addEventListener('scroll', handleScroll);
         let time = 0;
         let complete = false;
-        const speed = 0.015;
+        const speed = 0.028;
         const duration = Math.PI;
         
         const animate = () => {

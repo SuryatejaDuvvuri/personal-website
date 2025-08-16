@@ -1,5 +1,6 @@
 'use client';
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaTwitter, FaGithub, FaStackoverflow } from "react-icons/fa";
+import { SiWritedotas } from "react-icons/si";
 
 export default function Footer() {
   
@@ -22,10 +23,10 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         className="group flex items-center gap-2 hover:scale-110 transition-all duration-300 text-gray-400 hover:text-green-400"
                     >
-                        <FaLinkedin size="24" />
                         <span className="font-matrix text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                             LinkedIn
                         </span>
+                        <FaLinkedin size="24" />
                     </a>
                     
                     <a
@@ -34,10 +35,10 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         className="group flex items-center gap-2 hover:scale-110 transition-all duration-300 text-gray-400 hover:text-green-400"
                     >
-                        <FaTwitter size="24" />
                         <span className="font-matrix text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                             Twitter
                         </span>
+                        <FaTwitter size="24" />
                     </a>
                     
                     <a
@@ -46,17 +47,28 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         className="group flex items-center gap-2 hover:scale-110 transition-all duration-300 text-gray-400 hover:text-green-400"
                     >
-                        <FaGithub size="24" />
                         <span className="font-matrix text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                             GitHub
                         </span>
+                         <FaGithub size="24" />
+                    </a>
+                     <a
+                        href="blogproject-three.vercel.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-2 hover:scale-110 transition-all duration-300 text-gray-400 hover:text-green-400"
+                    >
+                        <span className="font-matrix text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                            Blog
+                        </span>
+                        <SiWritedotas size="24" />
                     </a>
                 </div>
             </div>
 
             <div className="mt-6 pt-4 border-t border-green-400/20">
                 <p className="text-center text-xs font-matrix text-gray-500">
-                    Built with Next.js • Styled with Matrix vibes 💚
+                    Built with Matrix vibes 💚
                 </p>
             </div>
     

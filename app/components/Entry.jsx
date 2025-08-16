@@ -175,7 +175,7 @@ const projects = [
         year:2021,
         items: [
             {
-                title: "Personal Website",
+                title: "Personal Website V.1.0",
                 date: "June 2021 - September 2021",
                 description: [
                     "Interest to showcase myself and give a place for anyone with information about myself or contact information for inquires. ",   
@@ -187,11 +187,11 @@ const projects = [
                 link: "https://github.com/SuryatejaDuvvuri/suryatejaDuvvuri.github.io"
             },
             {
-                title: "Java Final Game Project - PoetHunt",
+                title: "PoetHunt",
                 date: "April 2021 - May 2021",
                 description: [
                     
-                    "Worked on my first educational project with a team of two to gamify concepts of literature by creating a shotgun ui with mcq questions.",
+                    "For my Java final project, I worked on an educational project with a team of two to gamify concepts of literature by creating a shotgun ui with mcq questions.",
                     "Developed a point system, question bank along with explanations based on difficulty to challenge users to practice and gain maximum points.",
                     "Built other pages like instructions to make the game intuitive along with icons to make it visually appealing."
                 ],
@@ -350,7 +350,7 @@ function Timeline()
             {selected.items.map((item,index) => (
                 <div key = {index} className = "relative">
                     <div className = "absolute -left-8 top-2 w-4 h-4 bg-blue-600 rounded-full border-2 border-white"></div>
-                    <h3 className="text-3xl mb-1 font-matrix text-white">{item.title}</h3>
+                    <h3 className="text-2xl mb-1 font-matrix text-white">{item.title}</h3>
                     <span className="text-xl text-white font-matrix mt-2">{item.date}</span>
                     <div className="text-gray-300 mt-2 font-matrix text-2xl flex flex-col gap-2 pl-2">
                         {item.description.map((desc,indexOne) => (
@@ -397,7 +397,7 @@ function ProjectsSection()
                 {projects.map((p) => (
                     <button key = {p.year} 
                     onClick = {() => setSelectedYear(p.year)}
-                    className = {`px-4 py-2 rounded-full font-semibold font-matrix text-3xl transition-colors
+                    className = {`px-4 py-2 rounded-full font-semibold font-matrix text-xl transition-colors
                     ${selectedYear === p.year ? "bg-blue-600 text-white"
                                 : "bg-gray-200 text-gray-700 hover:bg-blue-100"}`}>
 
@@ -411,17 +411,17 @@ function ProjectsSection()
                     <a key = {index} href = {item.link || "#"} className = "group rounded-xl border border-gray-700 hover:shadow-xl transition-all p-6 flex flex-col h-full cursor-pointer">
                         <div className = "flex items-center gap-2 mb-2">
                             <FaGithub className = "text-xl text-gray-400" />
-                            <h3 className="text-3xl font-bold text-white font-matrix">{item.title}</h3>
+                            <h3 className="text-2xl font-bold text-white font-matrix">{item.title}</h3>
                         </div>
-                        <span className="text-xl text-gray-400 mb-2 font-matrix">{item.date}</span>
-                        <ul className = "text-gray-300 font-matrix text-2xl mb-4 space-y-1 list-disc list-inside">
+                        <span className="text-lg text-gray-400 mb-2 font-matrix">{item.date}</span>
+                        <ul className = "text-gray-300 font-matrix text-lg mb-4 space-y-1 list-disc list-inside">
                             {item.description.map((desc,i) => (
                                 <li key = {i}>{desc}</li>
                             ))}
                         </ul>
                         <div className = "flex flex-wrap gap-2 mt-auto">
                             {item.skills?.map((skill,i) => (
-                                <span key = {i} className = {`text-md px-2 py-1 rounded-full font-semibold ${skillColor(skill)}`}>
+                                <span key = {i} className = {`text-sm px-2 py-1 rounded-full font-semibold ${skillColor(skill)}`}>
                                     {skill}
                                 </span>
                             ))}
@@ -459,10 +459,10 @@ function Awards()
                     <a key = {index} href = {item.link || "#"} className = "group rounded-xl border border-gray-700 hover:shadow-xl transition-all p-6 flex flex-col h-full cursor-pointer">
                         <div className = "flex items-center gap-2 mb-2">
                             <FaAward className = "text-xl text-yellow-400" />
-                            <h3 className="text-3xl font-bold text-white font-matrix">{item.title}</h3>
+                            <h3 className="text-2xl font-bold text-white font-matrix">{item.title}</h3>
                         </div>
                         <span className="text-xl text-gray-300 mb-2 font-matrix">{item.date}</span>
-                        <ul className = "text-gray-300 font-matrix text-3xl mb-4 space-y-1 list-disc list-inside">
+                        <ul className = "text-gray-300 font-matrix text-lg mb-4 space-y-1 list-disc list-inside">
                             {item.description.map((desc,i) => (
                                 <li key = {i}>{desc}</li>
                             ))}
@@ -495,14 +495,14 @@ function Entry() {
 
     return (
         <main className="relative w-full">
-            <div className="fixed inset-0 z-0 select-none">
+            <div className="fixed inset-0 z-0 select-none pointer-events-none">
                 <Sunrise />
                 <FilmRoll />
             </div>
 
             <section className="relative min-h-[200vh]">
                 <div
-                    className="fixed inset-0 z-10 flex items-center justify-center"
+                    className="fixed inset-0 z-10 flex items-center justify-center pointer-events-none"
                     style={{
                         opacity: scrolled ? 0 : 1,
                         pointerEvents: scrolled ? 'none' : 'auto',
@@ -511,7 +511,7 @@ function Entry() {
                 >
                     <Computer zoomProgress={0} />
                     <div className="absolute w-[740px] h-[285px] bottom-[95px] left-[400px] overflow-hidden rounded-lg">
-                        <Code />
+                        <Code/>
                     </div>
                 </div>
 
@@ -527,7 +527,7 @@ function Entry() {
             </section>
 
             <div
-                className="fixed inset-0 z-20 overflow-y-auto"
+                className="relative z-10"
                 style={{
                     opacity: scrolled ? 1 : 0,
                     visibility: scrolled ? 'visible' : 'hidden',
@@ -546,10 +546,10 @@ function Entry() {
                         opacity: 0.2,
                     }}
                 />
-                <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
-                    <h1 className="font-matrix text-5xl md:text-7xl text-white font-black tracking-tighter pb-4 mb-12">
+                <div className="mx-auto px-6 py-12 relative z-10">
+                    {/* <h1 className="font-matrix text-5xl md:text-7xl text-white font-black tracking-tighter pb-4 mb-12">
                         About me & Interests
-                    </h1>
+                    </h1> */}
                     
                     <section className="mb-16">
                         <h2 className="font-matrix text-3xl md:text-4xl font-bold mb-8 text-white">Overview</h2>
@@ -565,6 +565,9 @@ function Entry() {
                                     My passion for building started with Legos as a child and grew through high school programming classes and projects.
                                 </p>
                                 <p>
+                                    After that, I have been trying out different things since 2021 and realized one thing. I love
+                                    building things and figuring out ways to convert an idea into applications. 
+                                    As a developer, I try to create projects that can not only be useful to others but also helping solve real-world problems and learning new technologies constantly.
                                     In personal projects, I focus on unique perspectives, creative tool use, and solving problems at any scale.
                                 </p>
                                 <p>
@@ -615,13 +618,14 @@ function Entry() {
                     </section>
 
                     <section className="mb-8">
-                        <h2 className="text-3xl font-bold mb-8 font-matrix text-white">Skills & Interests</h2>
+                        <h2 className="text-3xl font-bold mb-8 font-matrix text-green-400">Frameworks & Technologies</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {[
                                 { name: 'React', icon: SiReact, color: 'text-cyan-400' },
                                 { name: 'Next.js', icon: SiNextdotjs, color: 'text-white' },
                                 { name: 'Spring Boot', icon: SiSpring, color: 'text-green-500' },
                                 { name: 'Django', icon: SiDjango, color: 'text-green-600' },
+                                { name: 'Firebase', icon: SiFirebase, color: 'text-yellow-400' },
                                 { name: 'Tailwind', icon: SiTailwindcss, color: 'text-cyan-300' }
                             ].map((framework, index) => {
                                 const Icon = framework.icon;
@@ -633,31 +637,6 @@ function Entry() {
                                         <Icon className={`text-4xl mb-2 ${framework.color} group-hover:scale-110 transition-transform duration-300`} />
                                         <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
                                             {framework.name}
-                                        </span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </section>
-
-                    <section className="mb-8">
-                        <h3 className="text-2xl font-semibold mb-4 text-green-400 font-matrix">Databases</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {[
-                                { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-400' },
-                                { name: 'MySQL', icon: SiMysql, color: 'text-orange-400' },
-                                { name: 'MongoDB', icon: SiMongodb, color: 'text-green-500' },
-                                { name: 'Firebase', icon: SiFirebase, color: 'text-yellow-400' }
-                            ].map((db, index) => {
-                                const Icon = db.icon;
-                                return (
-                                    <div 
-                                        key={index} 
-                                        className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
-                                    >
-                                        <Icon className={`text-4xl mb-2 ${db.color} group-hover:scale-110 transition-transform duration-300`} />
-                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
-                                            {db.name}
                                         </span>
                                     </div>
                                 );
@@ -721,17 +700,17 @@ function Entry() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="relative group">
                                 <div className="aspect-square rounded-full border-2 border-green-400 flex items-center justify-center bg-white hover:border-green-300 transition-colors overflow-hidden">
-                                    <Image src="/eating.gif" alt="eating" width={200} height={200} className="object-cover w-full h-full" unoptimized />
+                                    <Image src="/eating.gif" alt="eating" width={50} height={50} className="object-cover w-full h-full" unoptimized />
                                 </div>
                             </div>
                             <div className="relative group">
                                 <div className="aspect-square rounded-full border-2 border-green-400 flex items-center justify-center bg-white hover:border-green-300 transition-colors overflow-hidden">
-                                    <Image src="/shannonandrew.gif" alt="shannonandrew" width={200} height={200} className="object-cover w-full h-full" unoptimized />
+                                    <Image src="/shannonandrew.gif" alt="shannonandrew" width={50} height={50} className="object-cover w-full h-full" unoptimized />
                                 </div>
                             </div>
                             <div className="relative group">
                                 <div className="aspect-square rounded-full border-2 border-green-400 flex items-center justify-center bg-white hover:border-green-300 transition-colors overflow-hidden">
-                                    <Image src="/coding.gif" alt="coding" width={200} height={200} className="object-cover w-full h-full" unoptimized />
+                                    <Image src="/coding.gif" alt="coding" width={50} height={50} className="object-cover w-full h-full" unoptimized />
                                 </div>
                             </div>
                         </div>
@@ -782,10 +761,12 @@ function Entry() {
                             </form>
                         </div>
                     </section>
+                    
                 </div>
+                <footer className="bg-black/80 border-t border-green-400/30 mt-8">
+                    <Footer />
+                </footer>
             </div>
-
-            <Footer />
         </main>
     );
 }

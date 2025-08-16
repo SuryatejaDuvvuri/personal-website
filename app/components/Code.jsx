@@ -28,11 +28,11 @@ function Code() {
         const drops = Array(cols).fill(1);
 
         const phrases = [
-            "Hello!",
-            "I am Suryateja Duvvuri",
-            "a Student",
-            "a Developer",
-            "Building something cool...",
+            "Look out the window...",
+            "Wait for the sun..",
+            "Wait for it..",
+            "There you go 😄",
+            "Now scroll down👇",
         ];
         let currentPhrase = 0;
         let currentChar = 0;
@@ -56,7 +56,7 @@ function Code() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.font = `${letterSize}px 'Matrixtype', 'Share Tech Mono', monospace`;
+            ctx.font = `${letterSize}px 'Matrixtype', monospace`;
 
             for (let i = 0; i < drops.length; i++) {
                 const text = letters[Math.floor(Math.random() * letters.length)];
@@ -78,19 +78,12 @@ function Code() {
                 drops[i] += Math.random() * 0.8 + 0.3;
             }
 
-            // const textAreaHeight = 100;
-            // const textAreaY = canvas.height / 2 - textAreaHeight / 2;
-
-            // ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-            // ctx.fillRect(0, textAreaY, canvas.width, textAreaHeight);
-
-
             const now = Date.now();
             const currentText = phrases[currentPhrase];
             const typed = currentText.substring(0, currentChar);
 
-            const fontSize = Math.max(24, Math.min(40, canvas.width / 20));
-            ctx.font = `bold ${fontSize}px 'font-matrix', 'monospace'`;
+            const fontSize = 50;
+            ctx.font = `font-bold ${fontSize}px 'Matrixtype'`;
             ctx.fillStyle = '#ffffff';
             ctx.textBaseline = 'middle';
             ctx.textAlign = 'center';
@@ -147,8 +140,6 @@ function Code() {
         
         const handleResize = () => {
             updateCanvasSize();
-            // canvas.width = container.offsetWidth;
-            // canvas.height = container.offsetHeight;
             const newCols = Math.floor(canvas.width / letterSize);
             if (newCols !== cols) 
             {
