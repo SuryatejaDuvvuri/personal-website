@@ -28,10 +28,9 @@ function Computer({zoomProgress = 0})
         scene.add(computerGroup);
 
         const screenShape = new THREE.Shape();
-        const width = 8;
-        const height = 4.5;
+        const width = 7.5;
+        const height = 3.0;
         const radius = 0.15;
-
         screenShape.moveTo(-width/2 + radius, -height/2);
         screenShape.lineTo(width/2 - radius, -height/2);
         screenShape.quadraticCurveTo(width/2, -height/2, width/2, -height/2 + radius);
@@ -48,9 +47,9 @@ function Computer({zoomProgress = 0})
         computerGroup.add(screen);
     
         const bezelShape = new THREE.Shape();
-        const bezelWidth = 8.2;
-        const bezelHeight = 4.7;
-        const bezelRadius = 0.25;
+        const bezelWidth = 7.8;
+        const bezelHeight = 3.3;
+        const bezelRadius = 0.15;
 
         bezelShape.moveTo(-bezelWidth/2 + bezelRadius, -bezelHeight/2);
         bezelShape.lineTo(bezelWidth/2 - bezelRadius, -bezelHeight/2);
@@ -81,13 +80,13 @@ function Computer({zoomProgress = 0})
         // base.position.set(6.5, -5.32, 0);
         computerGroup.add(base);
 
-        screen.position.set(.25, 0, 0.02);
-        screen.scale.set(1.495, 1.1, 1);
+        screen.position.set(.25, 0.05, 0.02);
+        screen.scale.set(1.249*1.465, 1.649*1.05, 1);
         // screen.scale.set(2,2,2);
-        bezel.position.set(0.25, -0.05, -0.06);
-        bezel.scale.set(1.5, 1.14,1.1);
-        stand.position.set(0, -3.2, 0);
-        stand.scale.set(1, 0.8, 1);
+        bezel.position.set(0.25, 0.05, -0.06);
+        bezel.scale.set(1.25*1.5, 1.65*1.14,1);
+        stand.position.set(0, -3.5, 0);
+        stand.scale.set(1, -0.75, 1);
         base.position.set(0, -3.85, 0);
         base.rotation.x = 0;
         base.rotation.y = 0;

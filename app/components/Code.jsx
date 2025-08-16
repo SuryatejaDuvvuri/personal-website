@@ -1,12 +1,5 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({
-    subsets: ['latin'],
-    weight: ['900'], 
-    display: 'swap',
-});
 
 function Code() {
     const ref = useRef(null);
@@ -17,6 +10,17 @@ function Code() {
         const container = canvas.parentElement;
         canvas.width = container.offsetWidth;
         canvas.height = container.offsetHeight;
+
+        const updateCanvasSize = () => 
+        {
+            const rect = container.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            canvas.style.width = `${rect.width}px`;
+            canvas.style.height = `${rect.height}px`;
+        };
+        
+        updateCanvasSize();
 
         const letters = 'アァイィウヴエェオカガキギクグケゲコゴサザシジスズセゼソゾタダチッヂヅテデトドナニヌネノハバパヒビピフブプヘベペホボポ'.split('');
         const letterSize = 14; 
@@ -36,7 +40,8 @@ function Code() {
         let typingPause = false;
         let lastTyped = Date.now();
 
-        function getTypeDelay() {
+        function getTypeDelay() 
+        {
             if (isDeleting) return 75 + Math.random() * 50; 
             return 150 + Math.random() * 100; 
         }
@@ -51,17 +56,17 @@ function Code() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.font = `${letterSize}px font-matrix`;
+            ctx.font = `${letterSize}px 'Matrixtype', 'Share Tech Mono', monospace`;
 
             for (let i = 0; i < drops.length; i++) {
                 const text = letters[Math.floor(Math.random() * letters.length)];
                 
                 if (Math.random() > 0.98) {
-                    ctx.fillStyle = '#fff'; 
+                    ctx.fillStyle = '#ffffff'; 
                 } else if (Math.random() > 0.90) {
-                    ctx.fillStyle = '#0f0'; 
+                    ctx.fillStyle = '#00ff00'; 
                 } else {
-                    ctx.fillStyle = '#040'; 
+                    ctx.fillStyle = '#008800'; 
                 }
 
                 ctx.fillText(text, i * letterSize, drops[i] * letterSize);
@@ -70,17 +75,27 @@ function Code() {
                     drops[i] = 0;
                 }
 
-                drops[i] += Math.random() * 0.5 + 0.5;
+                drops[i] += Math.random() * 0.8 + 0.3;
             }
+
+            // const textAreaHeight = 100;
+            // const textAreaY = canvas.height / 2 - textAreaHeight / 2;
+
+            // ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            // ctx.fillRect(0, textAreaY, canvas.width, textAreaHeight);
+
 
             const now = Date.now();
             const currentText = phrases[currentPhrase];
             const typed = currentText.substring(0, currentChar);
 
-            ctx.font = `900 40px Sekaiwo, monospace`;
+            const fontSize = Math.max(24, Math.min(40, canvas.width / 20));
+            ctx.font = `bold ${fontSize}px 'font-matrix', 'monospace'`;
             ctx.fillStyle = '#ffffff';
             ctx.textBaseline = 'middle';
             ctx.textAlign = 'center';
+            ctx.shadowColor = 'rgba(0, 255, 0, 0.5)';
+            ctx.shadowBlur = 10;
             ctx.imageSmoothingEnabled = false;
             ctx.textRendering = 'geometricPrecision';
 
@@ -94,8 +109,13 @@ function Code() {
                 const textWidth = ctx.measureText(typed).width;
                 const cursorX = Math.round(canvas.width / 2 + textWidth / 2 + 2);
                 const cursorY = Math.round(canvas.height / 2 - 14);
+                const cursorHeight = fontSize;
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = '#00ff00';
                 ctx.fillRect(cursorX, cursorY, 2, 28);
             }
+
+            ctx.shadowBlur = 0;
 
             if (!typingPause && now - lastTyped > getTypeDelay()) {
                     if (!isDeleting) {
@@ -126,14 +146,20 @@ function Code() {
         
         
         const handleResize = () => {
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
+            updateCanvasSize();
+            // canvas.width = container.offsetWidth;
+            // canvas.height = container.offsetHeight;
+            const newCols = Math.floor(canvas.width / letterSize);
+            if (newCols !== cols) 
+            {
+                drops.length = newCols;
+                drops.fill(1);
+            }
         };
         
 
 
         window.addEventListener('resize', handleResize);
-
         const interval = setInterval(draw, 33); 
 
         return () => {
@@ -142,7 +168,11 @@ function Code() {
         };
     }, []);
 
-    return <canvas ref={ref} className="w-full h-full bg-black" />;
+    return <canvas ref={ref} className="w-full h-full bg-black" style={{
+                imageRendering: 'pixelated',
+                border: '2px solid #333',
+                borderRadius: '8px'
+            }}/>;
 }
 
 export default Code;

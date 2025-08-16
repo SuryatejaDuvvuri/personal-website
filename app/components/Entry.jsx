@@ -5,12 +5,18 @@ import Code from "./Code"
 import Computer from "./Computer"
 import dynamic from 'next/dynamic';
 import FilmRoll from "./FilmRoll";
-import Footer from "../Footer";
+import Footer from "./Footer";
 import Image from 'next/image';
+import MatrixRain from "./MatrixRain";
+import { 
+    SiPython, SiCplusplus, SiJavascript, SiSwift,
+    SiReact, SiNextdotjs, SiSpring, SiDjango, SiFirebase,
+    SiTailwindcss, SiPostgresql, SiMysql, SiMongodb,
+    SiGit, SiDocker, SiRobotframework, SiAmazonwebservices, SiGooglecloud, SiVercel
+} from 'react-icons/si';
+import { FaDatabase, FaCloud, FaMobile, FaGamepad, FaJava, FaGithub, FaAward } from 'react-icons/fa';
 
-import { IconName } from "react-icons/fa6";
 import { FaAngleRight } from "react-icons/fa6";
-import { FaGithub, FaAward } from 'react-icons/fa';
 
 const Sunrise = dynamic(() => import('./Sunrise'), {
     ssr: false,
@@ -470,22 +476,14 @@ function Awards()
 
 function Entry() {
     const [scrolled, setScrolled] = useState(false);
-    const [scrollProgress, setScrollProgress] = useState(0);
     const router = useRouter();
-    const zoomProgress = Math.max(0, Math.min(1, (scrollProgress - 0.1) / 0.1));
-    const isMonitorFullscreen = zoomProgress >= 0.00001;
 
     useEffect(() => {
         window.scrollTo(0, 0);
 
-        const handleScroll = () => 
-        {
+        const handleScroll = () => {
             const scrollPos = window.scrollY;
-            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = scrollPos / maxScroll;
-            
-            setScrolled(scrollPos > 2);
-            setScrollProgress(progress);
+            setScrolled(scrollPos > window.innerHeight);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -496,203 +494,298 @@ function Entry() {
     }, []);
 
     return (
-        <main className="relative w-full" style={{
-                background: isMonitorFullscreen ? "#000" : "",
-                transition: "background 0.5s"
-            }}>
-            <div className="bg-gradient-to-b from-transparent to-[#1a2540]/90" style={{
-                    transition: 'opacity 0.5s ease-out',
-                    pointerEvents: isMonitorFullscreen ? 'none' : 'auto'
-                }}>
-                <div className="fixed inset-0 z-0 select-none">
-                    <Sunrise />
-                    <FilmRoll />
+        <main className="relative w-full">
+            <div className="fixed inset-0 z-0 select-none">
+                <Sunrise />
+                <FilmRoll />
+            </div>
+
+            <section className="relative min-h-[200vh]">
+                <div
+                    className="fixed inset-0 z-10 flex items-center justify-center"
+                    style={{
+                        opacity: scrolled ? 0 : 1,
+                        pointerEvents: scrolled ? 'none' : 'auto',
+                        transition: 'opacity 0.5s ease-out',
+                    }}
+                >
+                    <Computer zoomProgress={0} />
+                    <div className="absolute w-[740px] h-[285px] bottom-[95px] left-[400px] overflow-hidden rounded-lg">
+                        <Code />
+                    </div>
                 </div>
 
-                <section className="relative min-h-[100vh]">
-                    <div
-                        className={`fixed inset-0 z-10 flex items-center justify-center${isMonitorFullscreen ? ' pointer-events-none' : ''}`}
-                        style={{
-                            transform: `scale(${1 + zoomProgress * 0.5})`,
-                            opacity: isMonitorFullscreen ? 0 : 1,
-                            pointerEvents: isMonitorFullscreen ? 'none' : 'auto',
-                            transition: 'transform 0.5s ease-out, opacity 0.3s ease-out',
-                        }}
-                    >
-                        {!isMonitorFullscreen && (
-                            <>
-                                <Computer zoomProgress={zoomProgress} />
-                                <div className="absolute w-[790px] h-[318px] bottom-[130px] left-[565px] overflow-hidden"
-                                    style={{ opacity: 1 - zoomProgress * 2 }}>
-                                    <Code />
-                                </div>
-                            </>
-                        )}
+                <div className="relative z-0 pointer-events-none">
+                    <div className="h-screen"></div>
+                    <div className="h-screen flex items-center justify-center">
+                        <div className="text-center text-white/30 font-matrix">
+                            <p className="text-2xl mb-4">Continue scrolling...</p>
+                            <div className="animate-bounce">↓</div>
+                        </div>
                     </div>
+                </div>
+            </section>
 
-                    <div className="absolute inset-0 z-10" style={{
-                        opacity: isMonitorFullscreen ? 1 : 0,
-                        visibility: isMonitorFullscreen ? 'visible' : 'hidden',
-                        transition: 'opacity 0.5s ease-in-out',
-                        background: 'rgba(0, 10, 0, 0.9)', 
-                        color: '#0f0',
-                        overflow: 'auto'
-                    }}>
-                         <div 
-                            className="absolute inset-0 pointer-events-none" 
-                            style={{
-                                background: 'linear-gradient(rgba(0, 255, 0, 0.03) 50%, rgba(0, 0, 0, 0) 50%)',
-                                backgroundSize: '100% 4px',
-                                mixBlendMode: 'overlay',
-                                opacity: 0.2,
-                            }}
-                        />
-                        <h1 className="font-matrix text-7xl text-white font-black tracking-tighter pb-4 mb-12">
-                            About me & Interests
-                        </h1>
-                        <section className="mb-16">
-                            <h2 className="font-matrix text-4xl font-bold mb-6 text-white"> Overview</h2>
-                            <div className="flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
-                                <div className="flex-shrink-0">
-                                    <Image src="/Surya.png" alt="image" width={340} height={340} className="rounded-xl shadow-lg object-cover w-[340px] h-[340px] border-4 border-white" />
-                                </div>
-                                <div className="font-matrix text-2xl space-y-6 dark:text-gray-300 p-4 leading-relaxed">
-                                    <p>
-                                        I am Suryateja! a developer, student, and lifelong learner. I am studying at <span className="text-green-400">University of California, Riverside </span> and pursuing a bachelors degree in Computer Science.
-                                    </p>
-                                    <p>
-                                        My passion for building stuff started when I was building Legos as a child and I also saw this interest
-                                        through my high school programming classes in assignments and projects.
-                                    </p>
-                                    <p> When I started doing personal projects, I always focused on either showing things differently, or tweaking tools that others could not think of or just trying to solve a problem whether that is a small or big scale. </p>
-
-                                    <p>
-                                        Since the start of my undergraduate career, I have been exploring areas
-                                        like full stack development, mobile development and integrating tools like AI to enhance my applications.
-                                        I am always looking for opportunities to learn and grow, both personally and professionally.
-                                    </p>
-                                </div>
+            <div
+                className="fixed inset-0 z-20 overflow-y-auto"
+                style={{
+                    opacity: scrolled ? 1 : 0,
+                    visibility: scrolled ? 'visible' : 'hidden',
+                    transition: 'opacity 0.5s ease-in-out',
+                    background: 'rgba(0, 10, 0, 0.95)',
+                    pointerEvents: scrolled ? 'auto' : 'none'
+                }}
+            >
+                <MatrixRain />
+                <div 
+                    className="absolute inset-0 pointer-events-none" 
+                    style={{
+                        background: 'linear-gradient(rgba(0, 255, 0, 0.03) 50%, rgba(0, 0, 0, 0) 50%)',
+                        backgroundSize: '100% 4px',
+                        mixBlendMode: 'overlay',
+                        opacity: 0.2,
+                    }}
+                />
+                <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
+                    <h1 className="font-matrix text-5xl md:text-7xl text-white font-black tracking-tighter pb-4 mb-12">
+                        About me & Interests
+                    </h1>
+                    
+                    <section className="mb-16">
+                        <h2 className="font-matrix text-3xl md:text-4xl font-bold mb-8 text-white">Overview</h2>
+                        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+                            <div className="flex-shrink-0">
+                                <Image src="/Surya.png" alt="Suryateja" width={280} height={280} className="rounded-xl shadow-lg object-cover w-[280px] h-[280px] border-4 border-green-400" />
                             </div>
-                        </section>
-
-                        <section className="mb-16">
-                            <h2 className="text-3xl font-bold mb-6 font-matrix text-white">Experience</h2>
-                            <Timeline />
-                            <ProjectsSection />
-                            <Awards />
-                            <h2 className="text-3xl font-bold mb-6"> Skills & Interests</h2>
-                            <div className="grid grid-cols-3 gap-8">
-                                <div className="rounded-lg border border-gray-200 p-6">
-                                    <h3 className="text-xl font-semibold mb-4">Programming Languages</h3>
-                                    <ul className="list-disc list-inside flex flex-col gap-2">
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-yellow-400 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2.5l13.5 7.8v11.4L16 29.5 2.5 21.7V10.3z" fill="#3776AB"/><path d="M16 4.2l11.5 6.6v10.4L16 27.8 4.5 21.2V10.8z" fill="#fff"/><path d="M16 6.1l9.5 5.5v8.8L16 25.9l-9.5-5.5v-8.8z" fill="#3776AB"/></svg></span>
-                                            Python
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-yellow-500 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><path d="M2 2h28v28H2z" fill="#f7df1e"/><path d="M19.7 23.6c.5.8 1.1 1.4 2.2 1.4 1 0 1.6-.5 1.6-1.2 0-.8-.6-1.1-1.8-1.6l-.6-.3c-1.7-.7-2.8-1.6-2.8-3.6 0-1.8 1.4-3.2 3.6-3.2 1.6 0 2.7.6 3.5 2l-1.9 1.2c-.4-.8-.8-1.1-1.6-1.1-.7 0-1.1.4-1.1 1 0 .7.4 1 1.4 1.4l.6.3c2 .9 3.1 1.7 3.1 3.7 0 2.1-1.7 3.3-4 3.3-2.2 0-3.6-1.1-4.3-2.5zm-8.2.2c.3.6.6 1.1 1.3 1.1.7 0 1.1-.3 1.1-1.4v-7.7h2.2v7.8c0 2.3-1.3 3.3-3.2 3.3-1.7 0-2.7-.9-3.2-2z" fill="#000"/></svg></span>
-                                            JavaScript
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-blue-500 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2.3l13.7 7.9v11.6L16 29.7 2.3 21.8V10.2z" fill="#00599C"/><path d="M16 4.1l11.5 6.6v10.6L16 27.9 4.5 21.3V10.7z" fill="#fff"/><path d="M16 6.2l9.5 5.5v8.8L16 25.8l-9.5-5.5v-8.8z" fill="#00599C"/><path d="M16 8.1l7.5 4.3v7.2L16 23.9l-7.5-4.3v-7.2z" fill="#fff"/><path d="M16 10.1l5.5 3.2v5.2L16 21.9l-5.5-3.2v-5.2z" fill="#00599C"/></svg></span>
-                                            C++
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="rounded-lg border border-gray-200 p-6">
-                                    <h3 className="text-xl font-semibold mb-4">Technologies and Frameworks</h3>
-                                    <ul className="list-disc list-inside flex flex-col gap-2">
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-cyan-400 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><circle cx="16" cy="16" r="16" fill="#61dafb"/><path d="M16 6.5c-5.2 0-9.5 2.1-9.5 4.7s4.3 4.7 9.5 4.7 9.5-2.1 9.5-4.7-4.3-4.7-9.5-4.7zm0 8.2c-4.1 0-7.5-1.5-7.5-3.5s3.4-3.5 7.5-3.5 7.5 1.5 7.5 3.5-3.4 3.5-7.5 3.5z" fill="#fff"/><circle cx="16" cy="16" r="2.5" fill="#fff"/></svg></span>
-                                            React
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-green-700 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><circle cx="16" cy="16" r="16" fill="#3c873a"/><path d="M23.6 17.7c-.2-.4-.5-.7-.9-.9-.4-.2-.9-.3-1.4-.3-.5 0-1 .1-1.4.3-.4.2-.7.5-.9.9-.2.4-.3.9-.3 1.4 0 .5.1 1 .3 1.4.2.4.5.7.9.9.4.2.9.3 1.4.3.5 0 1-.1 1.4-.3.4-.2.7-.5.9-.9.2-.4.3-.9.3-1.4 0-.5-.1-1-.3-1.4zm-7.2-2.5c-.2-.4-.5-.7-.9-.9-.4-.2-.9-.3-1.4-.3-.5 0-1 .1-1.4.3-.4.2-.7.5-.9.9-.2.4-.3.9-.3 1.4 0 .5.1 1 .3 1.4.2.4.5.7.9.9.4.2.9.3 1.4.3.5 0 1-.1 1.4-.3.4-.2.7-.5.9-.9.2-.4.3-.9.3-1.4 0-.5-.1-1-.3-1.4zm7.2-2.5c-.2-.4-.5-.7-.9-.9-.4-.2-.9-.3-1.4-.3-.5 0-1 .1-1.4.3-.4.2-.7.5-.9.9-.2.4-.3.9-.3 1.4 0 .5.1 1 .3 1.4.2.4.5.7.9.9.4.2.9.3 1.4.3.5 0 1-.1 1.4-.3.4-.2.7-.5.9-.9.2-.4.3-.9.3-1.4 0-.5-.1-1-.3-1.4z" fill="#fff"/></svg></span>
-                                            Node.js
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-gray-900 text-2xl"><svg width="1em" height="1em" viewBox="0 0 32 32" fill="currentColor"><rect width="32" height="32" rx="16" fill="#000"/><path d="M16 7.5l8.5 4.9v7.2L16 24.5l-8.5-4.9v-7.2z" fill="#fff"/><path d="M16 9.2l7 4v5.6l-7 4-7-4v-5.6z" fill="#fff"/><path d="M16 10.9l5.5 3.1v4.4l-5.5 3.1-5.5-3.1v-4.4z" fill="#fff"/></svg></span>
-                                            Next.js
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section className="mb-16">
-                            <div className="pt-8">
-                                <h3 className="font-matrix text-2xl font-semibold mb-4 dark:text-white">What am I doing now?</h3>
-                                <div className="grid grid-cols-3 gap-6">
-                                    <div className="relative-group">
-                                        <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
-                                            <Image src="/coding.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />
-                                        </div>
-                                    </div>
-                                    <div className="relative group">
-                                        <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
-                                            <Image src="/eating.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />
-                                        </div>
-                                    </div>
-                                    <div className="relative group">
-                                        <div className="aspect-square rounded-full border-2 border-gray-200 flex items-center justify-center bg-white hover:border-gray-400 transition-colors overflow-hidden">
-                                            <Image src="/shannonandrew.gif" alt="gif" width={500} height={500} className="object-cover w-full h-full" unoptimized />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <div className="min-h-screen flex items-center justify-center p-8">
-                            <div className="w-full mx-auto rounded-2xl shadow-2xl p-10">
-                                <h2 className="font-matrix text-8xl font-black tracking-tighter mb-12 dark:text-white">
-                                    Contact
-                                </h2>
-
-                                <form className="font-matrix space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-xl font-matrix text-gray-700">Name</label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            className="mt-1 block w-full rounded-md border-gray-300 bg-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-lg font-matrix text-gray-700">Email</label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="message" className="block text-lg font-matrix text-gray-700">Message</label>
-                                        <textarea
-                                            id="message"
-                                            name="message"
-                                            rows={4}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        />
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-black py-2 px-4 text-lg font-matrix text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                    >
-                                        Send Message
-                                    </button>
-                                </form>
-
+                            <div className="font-matrix text-lg md:text-xl space-y-4 text-gray-300 leading-relaxed">
+                                <p>
+                                    I am Suryateja! A developer, student, and lifelong learner at <span className="text-green-400">University of California, Riverside</span> pursuing a bachelors degree in Computer Science.
+                                </p>
+                                <p>
+                                    My passion for building started with Legos as a child and grew through high school programming classes and projects.
+                                </p>
+                                <p>
+                                    In personal projects, I focus on unique perspectives, creative tool use, and solving problems at any scale.
+                                </p>
+                                <p>
+                                    During my undergraduate career, I have explored full stack and mobile development, integrating AI to enhance applications. I am always seeking opportunities to learn and grow.
+                                </p>
                             </div>
                         </div>
+                    </section>
 
+                    <section className="mb-16">
+                        <h2 className="text-3xl font-bold mb-8 font-matrix text-white">Experience</h2>
+                        <Timeline />
+                    </section>
 
-                    </div>
-                <div className="h-[300vh]"></div>
-                </section>
-                <Footer />
+                    <section className="mb-16">
+                        <ProjectsSection />
+                    </section>
+
+                    <section className="mb-16">
+                        <Awards />
+                    </section>
+
+                    <section className = "mb-16">
+                        <section className="mb-8">
+                        <h3 className="text-2xl font-semibold mb-4 text-green-400 font-matrix">Programming Languages</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                            {[
+                                { name: 'Java', icon: FaJava, color: 'text-orange-500' },
+                                { name: 'Python', icon: SiPython, color: 'text-blue-400' },
+                                { name: 'C++', icon: SiCplusplus, color: 'text-blue-600' },
+                                { name: 'JavaScript', icon: SiJavascript, color: 'text-yellow-400' },
+                                { name: 'Swift', icon: SiSwift, color: 'text-orange-400' }
+                            ].map((lang, index) => {
+                                const Icon = lang.icon;
+                                return (
+                                    <div 
+                                        key={index} 
+                                        className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
+                                    >
+                                        <Icon className={`text-4xl mb-2 ${lang.color} group-hover:scale-110 transition-transform duration-300`} />
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                            {lang.name}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </section>
+
+                    <section className="mb-8">
+                        <h2 className="text-3xl font-bold mb-8 font-matrix text-white">Skills & Interests</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {[
+                                { name: 'React', icon: SiReact, color: 'text-cyan-400' },
+                                { name: 'Next.js', icon: SiNextdotjs, color: 'text-white' },
+                                { name: 'Spring Boot', icon: SiSpring, color: 'text-green-500' },
+                                { name: 'Django', icon: SiDjango, color: 'text-green-600' },
+                                { name: 'Tailwind', icon: SiTailwindcss, color: 'text-cyan-300' }
+                            ].map((framework, index) => {
+                                const Icon = framework.icon;
+                                return (
+                                    <div 
+                                        key={index} 
+                                        className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
+                                    >
+                                        <Icon className={`text-4xl mb-2 ${framework.color} group-hover:scale-110 transition-transform duration-300`} />
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                            {framework.name}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </section>
+
+                    <section className="mb-8">
+                        <h3 className="text-2xl font-semibold mb-4 text-green-400 font-matrix">Databases</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {[
+                                { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-400' },
+                                { name: 'MySQL', icon: SiMysql, color: 'text-orange-400' },
+                                { name: 'MongoDB', icon: SiMongodb, color: 'text-green-500' },
+                                { name: 'Firebase', icon: SiFirebase, color: 'text-yellow-400' }
+                            ].map((db, index) => {
+                                const Icon = db.icon;
+                                return (
+                                    <div 
+                                        key={index} 
+                                        className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
+                                    >
+                                        <Icon className={`text-4xl mb-2 ${db.color} group-hover:scale-110 transition-transform duration-300`} />
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                            {db.name}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </section>
+
+                    <section className="mb-8">
+                        <h3 className="text-2xl font-semibold mb-4 text-green-400 font-matrix">Cloud & DevOps</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {[
+                                { name: 'AWS', icon: SiAmazonwebservices, color: 'text-orange-400' },
+                                { name: 'Google Cloud', icon: SiGooglecloud, color: 'text-blue-400' },
+                                { name: 'Vercel', icon: SiVercel, color: 'text-white' },
+                                { name: 'Docker', icon: SiDocker, color: 'text-blue-500' }
+                            ].map((tool, index) => {
+                                const Icon = tool.icon;
+                                return (
+                                    <div 
+                                        key={index} 
+                                        className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
+                                    >
+                                        <Icon className={`text-4xl mb-2 ${tool.color} group-hover:scale-110 transition-transform duration-300`} />
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                            {tool.name}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </section>
+
+                    <section className="mb-8">
+                        <h3 className="text-2xl font-semibold mb-4 text-green-400 font-matrix">Interests</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {[
+                                { name: 'Mobile Dev', icon: FaMobile, color: 'text-purple-400' },
+                                { name: 'Cloud Computing', icon: FaCloud, color: 'text-cyan-400' },
+                                { name: 'Databases', icon: FaDatabase, color: 'text-yellow-400' },
+                                { name: 'Machine Learning', icon: SiRobotframework, color: 'text-pink-400' }
+                            ].map((interest, index) => {
+                                const Icon = interest.icon;
+                                return (
+                                    <div 
+                                        key={index} 
+                                        className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
+                                    >
+                                        <Icon className={`text-4xl mb-2 ${interest.color} group-hover:scale-110 transition-transform duration-300`} />
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                            {interest.name}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </section>
+                    </section>
+
+                    <section className="mb-16">
+                        <h3 className="font-matrix text-2xl font-semibold mb-6 text-white">What am I doing now?</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="relative group">
+                                <div className="aspect-square rounded-full border-2 border-green-400 flex items-center justify-center bg-white hover:border-green-300 transition-colors overflow-hidden">
+                                    <Image src="/eating.gif" alt="eating" width={200} height={200} className="object-cover w-full h-full" unoptimized />
+                                </div>
+                            </div>
+                            <div className="relative group">
+                                <div className="aspect-square rounded-full border-2 border-green-400 flex items-center justify-center bg-white hover:border-green-300 transition-colors overflow-hidden">
+                                    <Image src="/shannonandrew.gif" alt="shannonandrew" width={200} height={200} className="object-cover w-full h-full" unoptimized />
+                                </div>
+                            </div>
+                            <div className="relative group">
+                                <div className="aspect-square rounded-full border-2 border-green-400 flex items-center justify-center bg-white hover:border-green-300 transition-colors overflow-hidden">
+                                    <Image src="/coding.gif" alt="coding" width={200} height={200} className="object-cover w-full h-full" unoptimized />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="mb-16">
+                        <div className="w-full mx-auto rounded-xl border border-green-400 shadow-2xl p-8 bg-black/60">
+                            <h2 className="font-matrix text-4xl md:text-6xl font-black tracking-tighter mb-8 text-white">
+                                Contact
+                            </h2>
+                            <form action = "https://formspree.io/f/xgedojrd" method="POST" className="font-matrix space-y-6">
+                                <div>
+                                    <label htmlFor="name" className="block text-lg font-matrix text-green-400 mb-2">Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        required
+                                        className="block w-full rounded-md border-green-400 bg-black/80 text-white shadow-sm focus:border-green-300 focus:ring-green-300 p-3"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block text-lg font-matrix text-green-400 mb-2">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        required
+                                        className="block w-full rounded-md border-green-400 bg-black/80 text-white shadow-sm focus:border-green-300 focus:ring-green-300 p-3"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="message" className="block text-lg font-matrix text-green-400 mb-2">Message</label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        rows={4}
+                                        required
+                                        className="block w-full rounded-md border-green-400 bg-black/80 text-white shadow-sm focus:border-green-300 focus:ring-green-300 p-3"
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    className="inline-flex justify-center rounded-md border border-green-400 bg-green-400 py-3 px-8 text-lg font-matrix text-black shadow-sm hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+                                >
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
             </div>
+
+            <Footer />
         </main>
     );
 }
