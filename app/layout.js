@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 const matrixtype = localFont({
-  src: "./fonts/MatrixType.ttf",
+  src: "./fonts/Matrixtype.ttf",
   variable: "--font-matrix",
   weight: "400",
 });
