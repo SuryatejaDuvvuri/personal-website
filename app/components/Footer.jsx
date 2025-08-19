@@ -53,7 +53,7 @@ export default function Footer() {
                          <FaGithub size="24" />
                     </a>
                      <a
-                        href="blogproject-three.vercel.app/"
+                        href="https://blogproject-three.vercel.app/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-center gap-2 hover:scale-110 transition-all duration-300 text-gray-400 hover:text-green-400"

@@ -20,10 +20,12 @@ import { FaAngleRight } from "react-icons/fa6";
 
 const Sunrise = dynamic(() => import('./Sunrise'), {
     ssr: false,
-    loading: () => <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-xl font-matrix text-gray-600">Loading...</p>
+    loading: () => <div className="w-full h-screen flex items-center justify-center bg-black">
+        <p className = "text-2xl font-matrix text-emerald-400 animate-pulse">Loading...</p>
     </div>
 });
+
+
 
 const experiences = [
     {
@@ -340,8 +342,8 @@ function Timeline()
         <section className = "mb-16">
            <div className = "flex gap-4 mb-8">
                 {experiences.map((exp) => (
-                <button key={exp.year} onClick = {() => setSelectedYear(exp.year)} className = {`px-4 py-2 rounded-full font-semibold transition-colors
-                    ${selectYear === exp.year ? "font-matrix bg-green-600 text-white text-xl" : "bg-gray-200 text-gray-700 font-matrix text-xl hover:bg-green-100"}`}>
+                <button key={exp.year} onClick = {() => setSelectedYear(exp.year)} className = {`px-4 py-2 rounded-full border-b font-semibold transition-colors
+                    ${selectYear === exp.year ? "font-matrix bg-green-600 text-white text-xl" : "bg-transparent text-gray-700 font-matrix text-xl hover:bg-green-100"}`}>
                         {exp.year}
                     </button>
             ))}
@@ -355,7 +357,7 @@ function Timeline()
                     <div className="text-gray-300 mt-2 font-matrix text-2xl flex flex-col gap-2 pl-2">
                         {item.description.map((desc,indexOne) => (
                             <li key = {indexOne} className = "flex items-start gap-2">
-                                <span className="text-green-400 pt-1">
+                                <span className="text-emerald-400 pt-1">
                                     <FaAngleRight size={24} />
                                 </span>
                                 <span>{desc}</span>
@@ -379,14 +381,14 @@ function ProjectsSection()
 
     return (
         <section className = "mb-16">
-            <h2 className = "text-4xl font-bold font-matrix mb-6 text-white">Projects</h2>
+            <h2 className = "text-4xl font-bold font-matrix mb-6 text-emerald-400">Projects</h2>
             <div className = "flex gap-4 mb-8">
                 {projects.map((p) => (
                     <button key = {p.year} 
                     onClick = {() => setSelectedYear(p.year)}
-                    className = {`px-4 py-2 rounded-full font-semibold font-matrix text-xl transition-colors
+                    className = {`px-4 py-2 rounded-full border-b font-semibold font-matrix text-xl transition-colors
                     ${selectedYear === p.year ? "bg-green-600 text-white"
-                                : "bg-gray-200 text-gray-700 hover:bg-green-100"}`}>
+                                : "bg-transparent text-gray-700 hover:bg-green-100"}`}>
 
                         {p.year}
                     </button>
@@ -408,7 +410,7 @@ function ProjectsSection()
                         </ul>
                         <div className = "flex flex-wrap gap-2 mt-auto">
                             {item.skills?.map((skill,i) => (
-                                <span key = {i} className = {`text-sm px-2 py-1 rounded-full font-matrix font-semibold border-b text-emerald-300`}>
+                                <span key = {i} className = {`text-sm px-2 py-1 rounded-full font-matrix font-semibold border-b text-emerald-400`}>
                                     {skill}
                                 </span>
                             ))}
@@ -427,14 +429,14 @@ function Awards()
 
     return (
         <section className = "mb-16">
-            <h2 className = "text-4xl font-bold font-matrix mb-6 text-white">Awards</h2>
+            <h2 className = "text-4xl font-bold font-matrix mb-6 text-emerald-400">Awards</h2>
             <div className = "flex gap-4 mb-8">
                 {awards.map((p) => (
                     <button key = {p.year} 
                     onClick = {() => setSelectedYear(p.year)}
-                    className = {`px-4 py-2 rounded-full font-semibold font-matrix text-xl transition-colors
+                    className = {`px-4 py-2 rounded-full border-b font-semibold font-matrix text-xl transition-colors
                     ${selectedYear === p.year ? "bg-green-600 text-white"
-                                : "bg-gray-200 text-gray-700 hover:bg-blue-100"}`}>
+                                : "bg-transparent text-gray-700 hover:bg-blue-100"}`}>
 
                         {p.year}
                     </button>
@@ -534,19 +536,15 @@ function Entry() {
                     }}
                 />
                 <div className="mx-auto px-6 py-12 relative z-10">
-                    {/* <h1 className="font-matrix text-5xl md:text-7xl text-white font-black tracking-tighter pb-4 mb-12">
-                        About me & Interests
-                    </h1> */}
-                    
                     <section className="mb-16">
-                        <h2 className="font-matrix text-3xl md:text-4xl font-bold mb-8 text-white">Overview</h2>
+                        <h2 className="font-matrix text-3xl md:text-4xl font-bold mb-8 text-emerald-400">Overview</h2>
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                             <div className="flex-shrink-0">
-                                <Image src="/Surya.png" alt="Suryateja" width={280} height={280} className="rounded-xl shadow-lg object-cover w-[280px] h-[280px] border-4 border-green-400" />
+                                <Image src="/Surya.png" alt="Suryateja" width={280} height={280} className="rounded-xl shadow-lg border-b-4 object-cover w-[280px] h-[280px] border-green-400" />
                             </div>
                             <div className="font-matrix text-lg md:text-xl space-y-4 text-gray-300 leading-relaxed">
                                 <p>
-                                    I am Suryateja! A developer, student, and lifelong learner at <span className="text-green-400">University of California, Riverside</span> pursuing a bachelors degree in Computer Science.
+                                    I am Suryateja! A developer, student, and lifelong learner at <span className="text-emerald-400">University of California, Riverside</span> pursuing a bachelors degree in Computer Science.
                                 </p>
                                 <p>
                                     My passion for building started with Legos as a child and grew through high school programming classes and projects.
@@ -565,7 +563,7 @@ function Entry() {
                     </section>
 
                     <section className="mb-16">
-                        <h2 className="text-3xl font-bold mb-8 font-matrix text-white">Experience</h2>
+                        <h2 className="text-3xl font-bold mb-8 font-matrix text-emerald-400">Experience</h2>
                         <Timeline />
                     </section>
 
@@ -579,7 +577,7 @@ function Entry() {
 
                     <section className = "mb-16">
                         <section className="mb-8">
-                        <h3 className="text-2xl font-semibold mb-4 text-green-400 font-matrix">Programming Languages</h3>
+                        <h3 className="text-2xl font-semibold mb-4 text-emerald-400 font-matrix">Programming Languages</h3>
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                             {[
                                 { name: 'Java', icon: FaJava, color: 'text-orange-500' },
@@ -595,7 +593,7 @@ function Entry() {
                                         className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
                                     >
                                         <Icon className={`text-4xl mb-2 ${lang.color} group-hover:scale-110 transition-transform duration-300`} />
-                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-emerald-400 transition-colors">
                                             {lang.name}
                                         </span>
                                     </div>
@@ -605,13 +603,13 @@ function Entry() {
                     </section>
 
                     <section className="mb-8">
-                        <h2 className="text-3xl font-bold mb-8 font-matrix text-green-400">Frameworks & Technologies</h2>
+                        <h2 className="text-3xl font-bold mb-8 font-matrix text-emerald-400">Frameworks & Technologies</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {[
                                 { name: 'React', icon: SiReact, color: 'text-cyan-400' },
                                 { name: 'Next.js', icon: SiNextdotjs, color: 'text-white' },
-                                { name: 'Spring Boot', icon: SiSpring, color: 'text-green-500' },
-                                { name: 'Django', icon: SiDjango, color: 'text-green-600' },
+                                { name: 'Spring Boot', icon: SiSpring, color: 'text-emerald-500' },
+                                { name: 'Django', icon: SiDjango, color: 'text-emerald-600' },
                                 { name: 'Firebase', icon: SiFirebase, color: 'text-yellow-400' },
                                 { name: 'Tailwind', icon: SiTailwindcss, color: 'text-cyan-300' }
                             ].map((framework, index) => {
@@ -622,7 +620,7 @@ function Entry() {
                                         className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
                                     >
                                         <Icon className={`text-4xl mb-2 ${framework.color} group-hover:scale-110 transition-transform duration-300`} />
-                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-emerald-400 transition-colors">
                                             {framework.name}
                                         </span>
                                     </div>
@@ -632,7 +630,7 @@ function Entry() {
                     </section>
 
                     <section className="mb-8">
-                        <h3 className="text-2xl font-semibold mb-4 text-green-400 font-matrix">Cloud & DevOps</h3>
+                        <h3 className="text-2xl font-semibold mb-4 text-emerald-400 font-matrix">Cloud & DevOps</h3>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {[
                                 { name: 'AWS', icon: SiAmazonwebservices, color: 'text-orange-400' },
@@ -647,7 +645,7 @@ function Entry() {
                                         className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
                                     >
                                         <Icon className={`text-4xl mb-2 ${tool.color} group-hover:scale-110 transition-transform duration-300`} />
-                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-emerald-400 transition-colors">
                                             {tool.name}
                                         </span>
                                     </div>
@@ -657,7 +655,7 @@ function Entry() {
                     </section>
 
                     <section className="mb-8">
-                        <h3 className="text-2xl font-semibold mb-4 text-green-400 font-matrix">Interests</h3>
+                        <h3 className="text-2xl font-semibold mb-4 text-emerald-400 font-matrix">Interests</h3>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {[
                                 { name: 'Mobile Dev', icon: FaMobile, color: 'text-purple-400' },
@@ -672,7 +670,7 @@ function Entry() {
                                         className="group flex flex-col items-center p-4 rounded-lg border border-green-400/30 bg-black/40 hover:bg-black/60 hover:border-green-400 transition-all duration-300 cursor-pointer hover:scale-105"
                                     >
                                         <Icon className={`text-4xl mb-2 ${interest.color} group-hover:scale-110 transition-transform duration-300`} />
-                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-green-400 transition-colors">
+                                        <span className="text-gray-300 font-matrix text-sm group-hover:text-emerald-400 transition-colors">
                                             {interest.name}
                                         </span>
                                     </div>
@@ -683,7 +681,7 @@ function Entry() {
                     </section>
 
                     <section className="mb-16">
-                        <h3 className="font-matrix text-2xl font-semibold mb-6 text-white">What am I doing now?</h3>
+                        <h3 className="font-matrix text-2xl font-semibold mb-6 text-emerald-400">What am I doing now?</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="relative group">
                                 <div className="aspect-square rounded-full border-2 border-green-400 flex items-center justify-center bg-white hover:border-green-300 transition-colors overflow-hidden">
@@ -705,12 +703,12 @@ function Entry() {
 
                     <section className="mb-16">
                         <div className="w-full mx-auto rounded-xl border border-green-400 shadow-2xl p-8 bg-black/60">
-                            <h2 className="font-matrix text-4xl md:text-6xl font-black tracking-tighter mb-8 text-white">
+                            <h2 className="font-matrix text-4xl md:text-6xl font-black tracking-tighter mb-8 text-emerald-400">
                                 Contact
                             </h2>
                             <form action = "https://formspree.io/f/xgedojrd" method="POST" className="font-matrix space-y-6">
                                 <div>
-                                    <label htmlFor="name" className="block text-lg font-matrix text-green-400 mb-2">Name</label>
+                                    <label htmlFor="name" className="block text-lg font-matrix text-emerald-400 mb-2">Name</label>
                                     <input
                                         type="text"
                                         id="name"
@@ -720,7 +718,7 @@ function Entry() {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="email" className="block text-lg font-matrix text-green-400 mb-2">Email</label>
+                                    <label htmlFor="email" className="block text-lg font-matrix text-emerald-400 mb-2">Email</label>
                                     <input
                                         type="email"
                                         id="email"
@@ -730,7 +728,7 @@ function Entry() {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="message" className="block text-lg font-matrix text-green-400 mb-2">Message</label>
+                                    <label htmlFor="message" className="block text-lg font-matrix text-emerald-400 mb-2">Message</label>
                                     <textarea
                                         id="message"
                                         name="message"
