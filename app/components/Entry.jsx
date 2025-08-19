@@ -341,7 +341,7 @@ function Timeline()
            <div className = "flex gap-4 mb-8">
                 {experiences.map((exp) => (
                 <button key={exp.year} onClick = {() => setSelectedYear(exp.year)} className = {`px-4 py-2 rounded-full font-semibold transition-colors
-                    ${selectYear === exp.year ? "font-matrix bg-blue-600 text-white text-xl" : "bg-gray-200 text-gray-700 font-matrix text-xl hover:bg-blue-100"}`}>
+                    ${selectYear === exp.year ? "font-matrix bg-green-600 text-white text-xl" : "bg-gray-200 text-gray-700 font-matrix text-xl hover:bg-green-100"}`}>
                         {exp.year}
                     </button>
             ))}
@@ -349,13 +349,13 @@ function Timeline()
            <div className = "space-y-8 border-l-4 border-blue-600 pl-6">
             {selected.items.map((item,index) => (
                 <div key = {index} className = "relative">
-                    <div className = "absolute -left-8 top-2 w-4 h-4 bg-blue-600 rounded-full border-2 border-white"></div>
+                    <div className = "absolute -left-8 top-2 w-4 h-4 bg-green-600 rounded-full border-2 border-white"></div>
                     <h3 className="text-2xl mb-1 font-matrix text-white">{item.title}</h3>
                     <span className="text-xl text-white font-matrix mt-2">{item.date}</span>
                     <div className="text-gray-300 mt-2 font-matrix text-2xl flex flex-col gap-2 pl-2">
                         {item.description.map((desc,indexOne) => (
                             <li key = {indexOne} className = "flex items-start gap-2">
-                                <span  className="text-blue-400 pt-1">
+                                <span className="text-green-400 pt-1">
                                     <FaAngleRight size={24} />
                                 </span>
                                 <span>{desc}</span>
@@ -370,20 +370,7 @@ function Timeline()
     )
 }
 
-const skillColor = (skill) => {
-    if (/python|django|pytorch/i.test(skill)) return "bg-yellow-100 text-yellow-800";
-    if (/java|spring/i.test(skill)) return "bg-orange-100 text-orange-800";
-    if (/react|next/i.test(skill)) return "bg-blue-100 text-blue-800";
-    if (/c\+\+|qt/i.test(skill)) return "bg-purple-100 text-purple-800";
-    if (/firebase|gcp|cloud/i.test(skill)) return "bg-amber-100 text-amber-800";
-    if (/tailwind|css/i.test(skill)) return "bg-cyan-100 text-cyan-800";
-    if (/sql|sqlite|postgres/i.test(skill)) return "bg-green-100 text-green-800";
-    if (/swift|ios/i.test(skill)) return "bg-pink-100 text-pink-800";
-    if (/linux/i.test(skill)) return "bg-gray-200 text-gray-800";
-    if (/vercel|render|azure|aws/i.test(skill)) return "bg-indigo-100 text-indigo-800";
-    if (/html|javascript/i.test(skill)) return "bg-red-100 text-red-800";
-    return "bg-gray-100 text-gray-800";
-};
+
 
 function ProjectsSection()
 {
@@ -398,8 +385,8 @@ function ProjectsSection()
                     <button key = {p.year} 
                     onClick = {() => setSelectedYear(p.year)}
                     className = {`px-4 py-2 rounded-full font-semibold font-matrix text-xl transition-colors
-                    ${selectedYear === p.year ? "bg-blue-600 text-white"
-                                : "bg-gray-200 text-gray-700 hover:bg-blue-100"}`}>
+                    ${selectedYear === p.year ? "bg-green-600 text-white"
+                                : "bg-gray-200 text-gray-700 hover:bg-green-100"}`}>
 
                         {p.year}
                     </button>
@@ -421,7 +408,7 @@ function ProjectsSection()
                         </ul>
                         <div className = "flex flex-wrap gap-2 mt-auto">
                             {item.skills?.map((skill,i) => (
-                                <span key = {i} className = {`text-sm px-2 py-1 rounded-full font-matrix font-semibold ${skillColor(skill)}`}>
+                                <span key = {i} className = {`text-sm px-2 py-1 rounded-full font-matrix font-semibold border-b text-emerald-300`}>
                                     {skill}
                                 </span>
                             ))}
@@ -446,7 +433,7 @@ function Awards()
                     <button key = {p.year} 
                     onClick = {() => setSelectedYear(p.year)}
                     className = {`px-4 py-2 rounded-full font-semibold font-matrix text-xl transition-colors
-                    ${selectedYear === p.year ? "bg-blue-600 text-white"
+                    ${selectedYear === p.year ? "bg-green-600 text-white"
                                 : "bg-gray-200 text-gray-700 hover:bg-blue-100"}`}>
 
                         {p.year}
