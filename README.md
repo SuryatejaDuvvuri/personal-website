@@ -1,4 +1,4 @@
-#Portfolio Website
+## Portfolio Website
 
 This is my personal portfolio website where I share my journey in Computer Science as well as the passions I have endured. The design involves the inspiration to make a cinematic website with **film rolls, typewriter effect and especially the matrix theme** while being implemented by web technologies.
 
