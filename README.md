@@ -18,11 +18,11 @@ As I mentioned earlier, I wanted my website to be cinematic so I wanted to inclu
 
 ---
 
-#Thoughts about AI
+# Thoughts about AI
 I will be honest that I did use AI assistance to guide me through this process as I do not know Three.js very well but yet, I wanted to make my website more animated. It did help me setup the 3D code, gave me suggestions about laying out my vision. But I had to debug most of the code and even scrap the code suggested by AI because it didn't match my vision. Hence, I looked up alternatives like stack overflow to help me do that job. Overall, the vision and theme shown in the website are solely mine. 
 
-#Reflections 
+# Reflections 
 I learned the basics of Three.js even though I'm fully not proficient in it but combining it with Next.js was a big task. I also learned that AI can be misleading at times which led me to critically think about my code but building something that is self-tailored is better than following a template. 
 
-#License
+# License
 Feel free to look at the website for inspiration but please do not copy the code and design entriely as the ideas and theme are mine.
