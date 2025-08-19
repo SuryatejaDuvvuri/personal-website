@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#Portfolio Website
 
-## Getting Started
+This is my personal portfolio website where I share my journey in Computer Science as well as the passions I have endured. The design involves the inspiration to make a cinematic website with **film rolls, typewriter effect and especially the matrix theme** while being implemented by web technologies.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Theme
+As I mentioned earlier, I wanted my website to be cinematic so I wanted to include things like sunrise to indicate a new day, computer to showcase what I am studying and showcase my love for computer science and cinematic aesthetics.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
+## Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Next.js** – Used for structure and routing.  
+- **React** – For rendering complex visuals like the sunrise scene.  
+- **Three.js** – For creating the interactive 3D sunrise and animations.  
+- **Tailwind CSS** – For styling with a cinematic and clean design.  
+- **Framer Motion** – For smooth animations.  
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+#Thoughts about AI
+I will be honest that I did use AI assistance to guide me through this process as I do not know Three.js very well but yet, I wanted to make my website more animated. It did help me setup the 3D code, gave me suggestions about laying out my vision. But I had to debug most of the code and even scrap the code suggested by AI because it didn't match my vision. Hence, I looked up alternatives like stack overflow to help me do that job. Overall, the vision and theme shown in the website are solely mine. 
 
-To learn more about Next.js, take a look at the following resources:
+#Reflections 
+I learned the basics of Three.js even though I'm fully not proficient in it but combining it with Next.js was a big task. I also learned that AI can be misleading at times which led me to critically think about my code but building something that is self-tailored is better than following a template. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#License
+Feel free to look at the website for inspiration but please do not copy the code and design entriely as the ideas and theme are mine.
