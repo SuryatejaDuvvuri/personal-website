@@ -421,7 +421,7 @@ function ProjectsSection()
                         </ul>
                         <div className = "flex flex-wrap gap-2 mt-auto">
                             {item.skills?.map((skill,i) => (
-                                <span key = {i} className = {`text-sm px-2 py-1 rounded-full font-semibold ${skillColor(skill)}`}>
+                                <span key = {i} className = {`text-sm px-2 py-1 rounded-full font-matrix font-semibold ${skillColor(skill)}`}>
                                     {skill}
                                 </span>
                             ))}

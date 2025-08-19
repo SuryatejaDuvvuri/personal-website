@@ -82,8 +82,8 @@ function Code() {
             const currentText = phrases[currentPhrase];
             const typed = currentText.substring(0, currentChar);
 
-            const fontSize = 50;
-            ctx.font = `font-bold ${fontSize}px 'Matrixtype'`;
+            const fontSize = 45;
+            ctx.font = `${fontSize}px 'Matrixtype'`;
             ctx.fillStyle = '#ffffff';
             ctx.textBaseline = 'middle';
             ctx.textAlign = 'center';

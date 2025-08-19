@@ -1,13 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html {
     scroll-behavior: smooth;
-}
-
-body {
-    overflow-x: hidden;
 }
 
 .film-roll-container {
@@ -20,13 +17,16 @@ body {
   font-weight: normal;
   font-style: normal;
 }
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-body, .matrix-font {
+body {
+    overflow-x: hidden;
+    font-family: 'Matrixtype'
+}
+/* body, .matrix-font {
   font-family: 'Share Tech Mono', monospace !important;
   color: #00ff41 !important;
   background: #000 !important;
-}
+} */
 
 .matrix-glow {
   text-shadow: 0 0 8px #00ff41, 0 0 2px #00ff41;
