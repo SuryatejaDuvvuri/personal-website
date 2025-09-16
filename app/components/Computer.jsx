@@ -2,7 +2,7 @@
 import { time } from 'framer-motion';
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
-function Computer({zoomProgress = 0}) 
+function Computer({zoomProgress = 0, children}) 
 {
     const ref = useRef(null);
 
@@ -15,9 +15,6 @@ function Computer({zoomProgress = 0})
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
         camera.position.set(0, 0.8, 8);
-
-        // const computerGroup = new THREE.Group();
-        // scene.add(computerGroup);
 
         const render = new THREE.WebGLRenderer({canvas:ref.current,antialias:true,alpha:true});
         render.setSize(window.innerWidth,window.innerHeight);
@@ -64,25 +61,21 @@ function Computer({zoomProgress = 0})
         const bezelGeo = new THREE.ShapeGeometry(bezelShape);
         const bezelMat = new THREE.MeshStandardMaterial({ color: 0x151515, roughness: 0.6 });
         const bezel = new THREE.Mesh(bezelGeo, bezelMat);
-        // bezel.position.set(6.5, -1.92, -0.04);
         computerGroup.add(bezel);
 
 
         const standGeo = new THREE.CylinderGeometry(0.12, 0.12, 1.2, 32);
         const standMat = new THREE.MeshStandardMaterial({ color: 0x202020, roughness: 0.7 });
         const stand = new THREE.Mesh(standGeo, standMat);
-        // stand.position.set(6.5, -4.85, 0);
         computerGroup.add(stand);
         
         const baseGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.08, 32);
         const baseMat = new THREE.MeshStandardMaterial({ color: 0x202020, roughness: 0.7 });
         const base = new THREE.Mesh(baseGeo, baseMat);
-        // base.position.set(6.5, -5.32, 0);
         computerGroup.add(base);
 
         screen.position.set(.25, 0.05, 0.02);
         screen.scale.set(1.249*1.465, 1.649*1.05, 1);
-        // screen.scale.set(2,2,2);
         bezel.position.set(0.25, 0.05, -0.06);
         bezel.scale.set(1.25*1.5, 1.65*1.14,1);
         stand.position.set(0, -3.5, 0);
@@ -135,7 +128,27 @@ function Computer({zoomProgress = 0})
         }
     }, [zoomProgress]);
 
-    return <canvas ref = {ref} className = "w-full h-full" />;
+    return (
+    <div className = "absolute top-0 left-0 w-full h-full">
+        <canvas ref = {ref} className = "absolute inset-0" />
+        <div className="absolute" style={{
+            left: '26.87vw',
+            top: '55.2vh',
+            width: '48vw',
+            height: '32.97vh',
+            minWidth: '400px',
+            maxWidth: '800px',
+            minHeight: '200px',
+            maxHeight: '350px',
+            marginRight: '25.13vw',
+            marginBottom: '11.83vh',
+            display: children ? 'block' : 'none',
+            pointerEvents: 'none'
+        }}>
+            {children}
+        </div>
+    </div>
+    );
 }
 
 export default Computer;

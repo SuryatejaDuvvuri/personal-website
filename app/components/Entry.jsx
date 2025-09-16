@@ -498,10 +498,9 @@ function Entry() {
                         transition: 'opacity 0.5s ease-out',
                     }}
                 >
-                    <Computer zoomProgress={0} />
-                    <div className="absolute w-[740px] h-[285px] bottom-[95px] left-[400px] overflow-hidden rounded-lg">
-                        <Code/>
-                    </div>
+                    <Computer zoomProgress={0}>
+                        <Code />
+                    </Computer>
                 </div>
 
                 <div className="relative z-0 pointer-events-none">
