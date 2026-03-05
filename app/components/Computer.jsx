@@ -1,10 +1,11 @@
 'use client';
-import { time } from 'framer-motion';
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
-function Computer({zoomProgress = 0, children}) 
+
+function Computer({zoomProgress = 0, children})
 {
     const ref = useRef(null);
+    const overlayRef = useRef(null);
 
     useEffect(() => {
         if(!ref.current)
@@ -16,10 +17,10 @@ function Computer({zoomProgress = 0, children})
         const camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
         camera.position.set(0, 0.8, 8);
 
-        const render = new THREE.WebGLRenderer({canvas:ref.current,antialias:true,alpha:true});
-        render.setSize(window.innerWidth,window.innerHeight);
-        render.setPixelRatio(window.devicePixelRatio);
-        render.setClearAlpha(0);
+        const renderer = new THREE.WebGLRenderer({canvas:ref.current,antialias:true,alpha:true});
+        renderer.setSize(window.innerWidth,window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearAlpha(0);
 
         const computerGroup = new THREE.Group();
         scene.add(computerGroup);
@@ -42,7 +43,7 @@ function Computer({zoomProgress = 0, children})
         const screenMat = new THREE.MeshStandardMaterial({color: 0x2e2e2e, metalness: 0.25, roughness: 0.45, clearcoat:0.1, emissive: 0x0a0a0a, emissiveIntensity: 0.1});
         const screen = new THREE.Mesh(screenGeo,screenMat);
         computerGroup.add(screen);
-    
+
         const bezelShape = new THREE.Shape();
         const bezelWidth = 7.8;
         const bezelHeight = 3.3;
@@ -68,7 +69,7 @@ function Computer({zoomProgress = 0, children})
         const standMat = new THREE.MeshStandardMaterial({ color: 0x202020, roughness: 0.7 });
         const stand = new THREE.Mesh(standGeo, standMat);
         computerGroup.add(stand);
-        
+
         const baseGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.08, 32);
         const baseMat = new THREE.MeshStandardMaterial({ color: 0x202020, roughness: 0.7 });
         const base = new THREE.Mesh(baseGeo, baseMat);
@@ -96,54 +97,86 @@ function Computer({zoomProgress = 0, children})
         computerGroup.add(stand);
         computerGroup.add(base);
 
+        // Project 3D screen corners to 2D to position the overlay
+        const hw = width / 2;
+        const hh = height / 2;
+        const localCorners = [
+            new THREE.Vector3(-hw, -hh, 0),
+            new THREE.Vector3( hw, -hh, 0),
+            new THREE.Vector3(-hw,  hh, 0),
+            new THREE.Vector3( hw,  hh, 0),
+        ];
+
+        function updateOverlay() {
+            if (!overlayRef.current) return;
+            const canvasW = renderer.domElement.clientWidth;
+            const canvasH = renderer.domElement.clientHeight;
+
+            const projected = localCorners.map(c => {
+                const wc = c.clone();
+                screen.localToWorld(wc);
+                wc.project(camera);
+                return {
+                    x: ( wc.x * 0.5 + 0.5) * canvasW,
+                    y: (-wc.y * 0.5 + 0.5) * canvasH,
+                };
+            });
+
+            const xs = projected.map(p => p.x);
+            const ys = projected.map(p => p.y);
+            const minX = Math.min(...xs);
+            const maxX = Math.max(...xs);
+            const minY = Math.min(...ys);
+            const maxY = Math.max(...ys);
+
+            overlayRef.current.style.left   = `${minX}px`;
+            overlayRef.current.style.top    = `${minY}px`;
+            overlayRef.current.style.width  = `${maxX - minX}px`;
+            overlayRef.current.style.height = `${maxY - minY}px`;
+        }
+
         const handleScroll = () => {
             const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
             camera.position.z = 8 - 6 * scrollProgress;
         };
         window.addEventListener('scroll', handleScroll);
 
-        const animate = () => 
+        let animId;
+        const animate = () =>
         {
-            requestAnimationFrame(animate);
+            animId = requestAnimationFrame(animate);
             camera.position.z = 8 - (6 * Math.pow(zoomProgress, 1.5));
             camera.position.y = 0.8 + (0.7 * zoomProgress);
             camera.fov = 75 - (25 * zoomProgress);
             camera.updateProjectionMatrix();
-            render.render(scene,camera);
+            renderer.render(scene,camera);
+            updateOverlay();
         };
         animate();
 
-        const resizeHandle = () => 
+        const resizeHandle = () =>
         {
             camera.aspect = window.innerWidth/window.innerHeight;
             camera.updateProjectionMatrix();
-            render.setSize(window.innerWidth, window.innerHeight);
+            renderer.setSize(window.innerWidth, window.innerHeight);
         };
         window.addEventListener('resize', resizeHandle);
 
         return () => {
+            cancelAnimationFrame(animId);
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize',resizeHandle);
-            render.dispose();
+            renderer.dispose();
         }
     }, [zoomProgress]);
 
     return (
     <div className = "absolute top-0 left-0 w-full h-full">
         <canvas ref = {ref} className = "absolute inset-0" />
-        <div className="absolute" style={{
-            left: '26.87vw',
-            top: '55.2vh',
-            width: '48vw',
-            height: '32.97vh',
-            minWidth: '400px',
-            maxWidth: '800px',
-            minHeight: '200px',
-            maxHeight: '350px',
-            marginRight: '25.13vw',
-            marginBottom: '11.83vh',
+        <div ref={overlayRef} className="absolute" style={{
             display: children ? 'block' : 'none',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            overflow: 'hidden',
         }}>
             {children}
         </div>

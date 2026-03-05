@@ -151,11 +151,16 @@ function Code() {
 
 
         window.addEventListener('resize', handleResize);
-        const interval = setInterval(draw, 33); 
+
+        const resizeObserver = new ResizeObserver(handleResize);
+        resizeObserver.observe(container);
+ 
+        const interval = setInterval(draw, 33);
 
         return () => {
             clearInterval(interval);
             window.removeEventListener('resize', handleResize);
+            resizeObserver.disconnect();
         };
     }, []);
 
