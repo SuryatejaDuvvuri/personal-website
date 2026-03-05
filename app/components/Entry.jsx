@@ -100,15 +100,6 @@ const experiences = [
                     to extract data and upsert to a Pinecone index to improve feedback by 15%`
                 ]
             },
-            {
-                title: "iOS Volunteer @ SeeMe",
-                date: "August 2024 - March 2025",
-                description: [
-                    `Developed a voice interaction feature in SwiftUI for a digital life coach app to provide real-time feedback and enhance users' wellness experience.`,
-                    `Implemented local storage using SwiftData to provide offline journaling access, reducing cloud storage cost by 25%.`,
-                    `Assisted in creating 3+ Figma mockups to clarify the UX flow for users, decreasing the development time by 30%.`,
-                ]
-            },
         ]
     },
     {
@@ -116,7 +107,7 @@ const experiences = [
         items: [
             {
                 title: "Undergraduate Reader @ UC Riverside",
-                date: "January 2025 - Present",
+                date: "January 2025 - December 2025",
                 description: [
                     `Guided 100+ students in C++ labs and office hours, covering concepts like OOP and data structures.`,
                     `Graded 30+ assignments and quizzes biweekly to deliver suggestions that elevated code quality by 40% and 
@@ -126,12 +117,11 @@ const experiences = [
                 ]
             }, 
             {
-                title: "Undergraduate Research Assistant @ UC Riverside",
+                title: "Research Assistant @ UC Riverside",
                 date: "April 2025 - Present",
                 description: [
                     `Working with a Ph.D. student under Professor Manu Sridharan to verify neural network properties.`,
                     `Enhanced model robustness through adversarial machine learning techniques.`,
-                    `Conducted static analysis to optimize runtime performance, significantly improving efficiency.`
                 ]
             },
             {
@@ -287,10 +277,10 @@ const projects = [
                 title: "Podnexus",
                 date: "January 2025 - April 2025",
                 description: [`Developed a full-stack app enabling real-time AI Q&A on podcasts, 
-                    increasing user interaction by 60%`,
-                    `Built a Spring Boot backend that processes 90% of the audio files 
+                    increasing user interaction,`,
+                    `Built a Spring Boot backend that processes audio files 
                     into texts to assist AI with producing responses.`,
-                    `Integrated Ollama for local LLM responses, reducing API costs by 30% to seamlessly deliver AI responses.`
+                    `Integrated Ollama for local LLM responses, reducing API costs to seamlessly deliver AI responses.`
                 ],
                 skills:["React.js", "Java", "Spring Boot", "Ollama"],
                 link: "https://github.com/SuryatejaDuvvuri/PodNexus"
@@ -308,7 +298,7 @@ const projects = [
             },
             {
                 title: "Lie Detection - Group Project",
-                date: "November 2024 - December 2024",
+                date: "April 2025 - June 2025",
                 description: [`Purpose is to detect and categorize sudden changes to determine whether someone is lying or telling the truth.`
                     ,`Used different encoding technique and preprocessing techniques through Spark Pipelines 
                     to reduce the image size without sacrificing the accuracy`,
@@ -318,8 +308,8 @@ const projects = [
                 link: "https://github.com/SuryatejaDuvvuri/CS179G-Project"
             },
             {
-                title: "CS010B Practice Portal",
-                date: "May 2025 - Present",
+                title: "CodeTrack",
+                date: "May 2025 - September 2025",
                 description: [
                     `Goal is to help students rely less on AI to fill in the foundational gap`,
                     `Instructors can assign problems to students for them to practice and solve problems before taking a retake`,
