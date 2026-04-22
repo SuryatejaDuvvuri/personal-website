@@ -121,7 +121,8 @@ const experiences = [
                 date: "April 2025 - Present",
                 description: [
                     `Working with a Ph.D. student under Professor Manu Sridharan to verify neural network properties.`,
-                    `Enhanced model robustness through adversarial machine learning techniques.`,
+                    `Evaluated adversarial robustness across 9 neural network architectures under L2 and L∞ perturbations.`,
+                    `Automated α,β-CROWN verification across 5 neural controller configs and 9 batch sizes using Bash.`,
                 ]
             },
             {
@@ -320,7 +321,45 @@ const projects = [
             }
 
         ]
+    },
+    {
+        year: 2026,
+        items: [
+            {
+                title: "SceneScope",
+                date: "April 2026 - Present",
+                description: [
+                    "Built an AI-assisted screenplay visualization tool that helps writers turn script scenes into generated visuals and dialogue audio previews.",
+                    "Implemented scene parsing, clarifying-question refinement, and mood-aware generation flows to support iterative story development.",
+                    "Engineered pilot-safe usage controls (project/scene/refinement limits) with backend enforcement and clear in-app communication.",
+                    "Deployed full-stack application (Cloudflare Pages + Render) and launched a live pilot with film students/screenwriters for structured feedback."
+                ],
+                skills: ["React", "TypeScript", "FastAPI", "Python", "SQLite", "Cloudflare Pages", "Render", "LLM APIs"],
+                link: "https://scenescope.pages.dev"
+            },
+            {
+              title: "PanelAI (Multi-Agent Interview Platform)",
+              date: "Apr 2026 - Present",
+              description: [
+                "Built an end-to-end AI interview simulation platform with specialized agents (orchestrator, technical, culture, domain, behavioral) collaborating in real time.",
+                "Implemented agent-to-agent orchestration, shared memory, reflection-based self-correction, and human approval gates for decision checkpoints.",
+                "Shipped manager-facing review workflows including evidence-backed scorecards, full transcript review, and downloadable JSON/PDF review packets.",
+                "Engineered resilient document ingestion for candidate/job context (TXT/MD/PDF/DOCX) and improved runtime reliability under LLM rate-limit pressure."
+              ],
+              skills: [
+                "TypeScript",
+                "React",
+                "Cloudflare Workers",
+                "Durable Objects",
+                "AI SDK",
+                "Multi-Agent Systems",
+                "PDF/DOCX Parsing"
+              ],
+              link: "https://github.com/SuryatejaDuvvuri/cf-ai-jarvis"
+            }
+        ]
     }
+
 ]
 
 function Timeline()
